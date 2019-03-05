@@ -1,0 +1,18 @@
+{
+  "name": "q-creative",
+  "version": "1.0.4",
+  "description": "Creative Method Library For Qmusic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://q-creative"
+  },
+  "keywords": [
+    "qmusic"
+  ],
+  "author": "Bram Schrooyen <bram.schrooyen@persgroep.net>",
+  "license": "ISC"
+}
