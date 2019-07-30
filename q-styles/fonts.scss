@@ -1,2 +1,26 @@
-@import 'q-fonts';
-@import 'joe-fonts';
+@function urls($url, $radio) {
+
+  $result: ();
+
+  @if $radio == qmusic{
+    $fontsBaseURL: 'https://fonts.qmusic.be/';
+    @each $item in ('.ttf', '.eot', 'woff', 'woff2', '.svg') {
+      $result: append($result, url('#{$fontsBaseURL}#{$url}#{$item}'), 'comma');
+    }
+  } @else {
+    $fontsBaseURL: 'https://static1.qmusic.medialaancdn.be/store/static/fonts/';
+    @each $item in ('.eot', 'woff', 'woff2') {
+      $result: append($result, url('#{$fontsBaseURL}#{$url}#{$item}'), 'comma');
+    }
+  }
+
+    @return $result;
+}
+
+@mixin Font($radio, $family, $src-name, $weight, $style) {
+  $url: urls($src-name, $radio);
+  font-family: $family;
+  src: $url;
+  font-weight: $weight;
+  font-style: $style;
+}

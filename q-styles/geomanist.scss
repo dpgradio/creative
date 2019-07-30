@@ -1,34 +1,21 @@
+@import 'fonts';
+
 @font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 200;
-  src: url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-light-webfont.eot?") format("eot"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-light-webfont.woff2") format("woff2"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-light-webfont.woff") format("woff")
+  @include Font(joe,"geomanist", "geomanist-light-webfont", 200, normal);
 }
 
 @font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 300;
-  src: url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-book-webfont.eot?") format("eot"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-book-webfont.woff2") format("woff2"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-book-webfont.woff") format("woff")
+  @include Font(joe,"geomanist", "geomanist-book-webfont", 300, normal);
 }
 
 @font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 400;
-  src: url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-regular-webfont.eot?") format("eot"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-regular-webfont.woff2") format("woff2"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-regular-webfont.woff") format("woff")
+  @include Font(joe,"geomanist", "geomanist-regular-webfont", 400, normal);
 }
 
 @font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 500;
-  src: url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-medium-webfont.eot?") format("eot"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-medium-webfont.woff2") format("woff2"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-medium-webfont.woff") format("woff")
+  @include Font(joe,"geomanist", "geomanist-medium-webfont", 500, normal);
 }
 
 @font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 600;
-  src: url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-bold-webfont.eot?") format("eot"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-bold-webfont.woff2") format("woff2"),url("https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-bold-webfont.woff") format("woff")
+  @include Font(joe,"geomanist", "geomanist-bold-webfont", 600, normal);
 }
