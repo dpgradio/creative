@@ -1,46 +1,17 @@
 @import 'fonts';
 
 @font-face {
-  font-family: 'Qarla';
-  src: url('https://fonts.qmusic.be/qarla-bold-webfont.eot');
-  src: url('https://fonts.qmusic.be/qarla-bold-webfont.eot?#iefix') format('embedded-opentype'),
-  url('https://fonts.qmusic.be/qarla-bold-webfont.woff2') format('woff2'),
-  url('https://fonts.qmusic.be/qarla-bold-webfont.woff') format('woff'),
-  url('https://fonts.qmusic.be/qarla-bold-webfont.ttf') format('truetype'),
-  url('https://fonts.qmusic.be/qarla-bold-webfont.svg#qarlabold') format('svg');
-  font-weight: bold;
-  font-style: normal;
+  @include Font(qmusic,"Qarla", "qarla-bold-webfont", bold, normal);
 }
+
 @font-face {
-  font-family: 'Qarla';
-  src: url('https://fonts.qmusic.be/qarla-bolditalic-webfont.eot');
-  src: url('https://fonts.qmusic.be/qarla-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
-  url('https://fonts.qmusic.be/qarla-bolditalic-webfont.woff2') format('woff2'),
-  url('https://fonts.qmusic.be/qarla-bolditalic-webfont.woff') format('woff'),
-  url('https://fonts.qmusic.be/qarla-bolditalic-webfont.ttf') format('truetype'),
-  url('https://fonts.qmusic.be/qarla-bolditalic-webfont.svg#qarlabolditalic') format('svg');
-  font-weight: bold;
-  font-style: italic;
+  @include Font(qmusic,"Qarla", "qarla-bolditalic-webfont", bold, italic);
 }
+
 @font-face {
-  font-family: 'Qarla';
-  src: url('https://fonts.qmusic.be/qarla-italic-webfont.eot');
-  src: url('https://fonts.qmusic.be/qarla-italic-webfont.eot?#iefix') format('embedded-opentype'),
-  url('https://fonts.qmusic.be/qarla-italic-webfont.woff2') format('woff2'),
-  url('https://fonts.qmusic.be/qarla-italic-webfont.woff') format('woff'),
-  url('https://fonts.qmusic.be/qarla-italic-webfont.ttf') format('truetype'),
-  url('https://fonts.qmusic.be/qarla-italic-webfont.svg#qarlaitalic') format('svg');
-  font-weight: normal;
-  font-style: italic;
+  @include Font(qmusic,"Qarla", "qarla-italic-webfont", normal, italic);
 }
+
 @font-face {
-  font-family: 'Qarla';
-  src: url('https://fonts.qmusic.be/qarla-regular-webfont.eot');
-  src: url('https://fonts.qmusic.be/qarla-regular-webfont.eot?#iefix') format('embedded-opentype'),
-  url('https://fonts.qmusic.be/qarla-regular-webfont.woff2') format('woff2'),
-  url('https://fonts.qmusic.be/qarla-regular-webfont.woff') format('woff'),
-  url('https://fonts.qmusic.be/qarla-regular-webfont.ttf') format('truetype'),
-  url('https://fonts.qmusic.be/qarla-regular-webfont.svg#qarlaregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
+  @include Font(qmusic,"Qarla", "qarla-regular-webfont", normal, normal);
 }

@@ -4,12 +4,12 @@
 
   @if $radio == qmusic{
     $fontsBaseURL: 'https://fonts.qmusic.be/';
-    @each $item in ('.ttf', '.eot', 'woff', 'woff2', '.svg') {
+    @each $item in ('.ttf', '.eot', '.woff', '.woff2', '.svg') {
       $result: append($result, url('#{$fontsBaseURL}#{$url}#{$item}'), 'comma');
     }
   } @else {
     $fontsBaseURL: 'https://static1.qmusic.medialaancdn.be/store/static/fonts/';
-    @each $item in ('.eot', 'woff', 'woff2') {
+    @each $item in ('.eot', '.woff', '.woff2') {
       $result: append($result, url('#{$fontsBaseURL}#{$url}#{$item}'), 'comma');
     }
   }
