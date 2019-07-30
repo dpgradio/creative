@@ -14,5 +14,8 @@
     "qmusic"
   ],
   "author": "Bram Schrooyen <bram.schrooyen@persgroep.net>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sass-loader": "^7.1.0"
+  }
 }
