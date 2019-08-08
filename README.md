@@ -2,6 +2,10 @@
 
 **For fonts:**
 
-   Joe: run method _loadFontsJoe()_ and use _"geomanist"_
+   In scss stylesheet:
 
-   Qmusic: run method _loadFontsQ()_ use _"Cervo", "Cervo medium", "Qarla"_
+   Qmusic: **@import "~q-creative/q-styles/q-fonts"**
+   
+   Joe: **@import "~q-creative/q-styles/joe-fonts"**
+   
+   Willy: **@import "~q-creative/q-styles/willy-fonts"**
