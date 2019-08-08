@@ -1,7 +1,10 @@
-//var Q = require('q-sock');
+import {Q} from 'q-sock';
 
 //console.log(Q);
+
 //exports.Q = Q;
+
+exports.Q = Q;
 
 exports.fillText = function(text, div, lineCount, mobile) {
     const style = window.getComputedStyle(div)
