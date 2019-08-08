@@ -1,4 +1,4 @@
-import {Q} from 'q-sock';
+import {Q} from './q-sock';
 
 //console.log(Q);
 
