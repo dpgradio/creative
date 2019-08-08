@@ -1,6 +1,6 @@
 {
   "name": "q-creative",
-  "version": "1.12.0",
+  "version": "2.0.0",
   "description": "Creative Method Library For Qmusic",
   "main": "index.js",
   "scripts": {
