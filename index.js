@@ -4,9 +4,9 @@ import {Q} from 'q-sock';
 
 //exports.Q = Q;
 
-exports.Q = Q;
+module.exports.Q = Q;
 
-exports.fillText = function(text, div, lineCount, mobile) {
+module.exports.fillText = function(text, div, lineCount, mobile) {
     const style = window.getComputedStyle(div)
     const width = (parseFloat(style.width) - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)) * 0.95
     const height = (parseFloat(style.height) - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom)) * 0.95
