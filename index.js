@@ -1,11 +1,10 @@
 import {Q} from './q-sock';
 
-//console.log(Q);
+let Sock = Q;
 
-//exports.Q = Q;
+export {Sock};
 
-module.exports.Q = Q;
-
+/*
 module.exports.fillText = function(text, div, lineCount, mobile) {
     const style = window.getComputedStyle(div)
     const width = (parseFloat(style.width) - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)) * 0.95
@@ -83,3 +82,4 @@ function measureText(text, target) {
         height: measuringDiv.offsetHeight
     }
 }
+*/

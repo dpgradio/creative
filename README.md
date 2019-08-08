@@ -9,3 +9,18 @@
    Joe: **@import "~q-creative/q-styles/joe-fonts"**
    
    Willy: **@import "~q-creative/q-styles/willy-fonts"**
+
+
+
+**For socket:** 
+
+
+First:
+        import { Sock } from 'q-creative'
+    
+Then:
+        window.qSocketLoaded = qSocketLoaded(Sock);
+        function qSocketLoaded (Q) {
+            var q = Q.connect('yourChannel')
+            q.subscribe('plays').on('play', yourFunction, {backlog: 1});
+        }
