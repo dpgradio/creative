@@ -17,6 +17,7 @@
   "author": "Bram Schrooyen <bram.schrooyen@persgroep.net>",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "sass-loader": "^7.1.0"
   }
 }

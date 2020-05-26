@@ -1,8 +1,14 @@
 import {Q} from './q-sock';
+import axios from 'axios'
 
 let Sock = Q;
 
-export {Sock};
+let shareFacebook = function(){
+    console.log('sharing')
+}
+
+export {Sock, shareFacebook};
+
 
 /*
 module.exports.fillText = function(text, div, lineCount, mobile) {
