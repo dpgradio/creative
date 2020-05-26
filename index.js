@@ -3,11 +3,156 @@ import axios from 'axios'
 
 let Sock = Q;
 
-let shareFacebook = function(){
-    console.log('sharing')
+let shareFacebook = async function(title, description, generatorUrl, redirectUrl, domain, shareObject ){
+
+    // Detect Safari 
+    let safariAgent = navigator.userAgent.indexOf("Safari") > -1; 
+    let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1; 
+
+
+    // Discard Safari since it also matches Chrome 
+    if ((chromeAgent) && (safariAgent)) safariAgent = false; 
+
+
+    let response;
+
+    
+    response =  await axios({
+        url: 'https://dba1du5ckc.execute-api.eu-west-3.amazonaws.com/prod/',
+        method: 'post',
+        data: {
+                title: title,
+                description: description,
+                image_generator: {
+                width: 1200,
+                height: 630,
+                url: generatorUrl,
+                payload: shareObject
+                },
+                redirect_url: redirectUrl,
+                domain: domain
+                }
+        })
+
+        let slicedUrl = response.data.url.slice(8)
+        if(window.isLoadedViaAppBrowser){
+           hybrid.call('navigateTo', {url: `https://www.facebook.com/sharer/sharer.php?u=https%3A//${slicedUrl}`, inApp: false}) 
+        } else {
+             if (window.location !== window.parent.location){
+                if(window.webkit || window.Android){
+                    window.parent.location = `https://www.facebook.com/sharer/sharer.php?u=https%3A//${slicedUrl}`;
+                }
+             
+            }
+            if(!safariAgent){
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=https%3A//${slicedUrl}`);
+            } else {
+                window.location = `https://www.facebook.com/sharer/sharer.php?u=https%3A//${slicedUrl}`
+            }
+        }
 }
 
-export {Sock, shareFacebook};
+let shareInstagram = async function(generatorUrl, shareObject){
+
+    // Detect Safari 
+    let safariAgent = navigator.userAgent.indexOf("Safari") > -1; 
+    let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1; 
+
+
+    // Discard Safari since it also matches Chrome 
+    if ((chromeAgent) && (safariAgent)) safariAgent = false; 
+
+
+    let response;
+
+    
+    response =  await axios({
+        url: 'https://dba1du5ckc.execute-api.eu-west-3.amazonaws.com/prod/',
+        method: 'post',
+        data: {
+                title: 'Instagram',
+                description: 'Description',
+                image_generator: {
+                width: 1080,
+                height: 1920,
+                url: generatorUrl,
+                payload: shareObject
+                },
+                redirect_url: 'Redirect',
+                domain: 'qmusic.be'
+                }
+        })
+
+        if(window.isLoadedViaAppBrowser){
+            hybrid.call('navigateTo', {url: response.data.image, inApp: false}) 
+          } else {
+              if (window.location !== window.parent.location){
+                  if(window.webkit || window.Android){
+                      window.parent.location = response.data.image;
+                  }
+               
+              }
+  
+              if(!safariAgent){
+                  window.open(response.data.image);
+              } else {
+                  window.location = response.data.image
+              }
+          }
+}
+
+/*let shareInstagram = async function(title, description, generatorUrl, redirectUrl, domain, shareObject ){
+
+        // Detect Safari 
+        let safariAgent = navigator.userAgent.indexOf("Safari") > -1; 
+        let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1; 
+
+
+        // Discard Safari since it also matches Chrome 
+        if ((chromeAgent) && (safariAgent)) safariAgent = false; 
+
+    let response
+    
+    response =  await axios({
+        url: 'https://dba1du5ckc.execute-api.eu-west-3.amazonaws.com/prod/',
+        method: 'post',
+        data: {
+                title: "Hier komt share titel",
+                description: "Swipe hier jouw nummer 1!",
+                image_generator: {
+                width: 1080,
+                height: 1920,
+                url: "https://static.qmusic.be/acties/swipe_10s_share/insta/index2.html",
+                payload: {tracks: this.shareObj}
+                },
+                redirect_url: "https://www.qmusic.be/nieuws/jij-bepaalt-de-volgorde-van-de-top-10-tindergewijs?s=5t_GTg",
+                domain: "qmusic.be"
+                }
+        })
+        this.isLoadingInsta = false
+
+        this.sendGtmShare("Instagram", this.shareObj[0])
+
+         if(window.isLoadedViaAppBrowser){
+          hybrid.call('navigateTo', {url: response.data.image, inApp: false}) 
+        } else {
+            if (window.location !== window.parent.location){
+                if(window.webkit || window.Android){
+                    window.parent.location = response.data.image;
+                }
+             
+            }
+
+            if(!this.safariAgent){
+                window.open(response.data.image);
+            } else {
+                window.location = response.data.image
+            }
+        }
+
+}*/
+
+export {Sock, shareFacebook, shareInstagram};
 
 
 /*
