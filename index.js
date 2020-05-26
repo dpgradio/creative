@@ -52,7 +52,7 @@ let shareFacebook = async function(title, description, generatorUrl, redirectUrl
         }
 }
 
-let shareInstagram = async function(generatorUrl, shareObject){
+let shareInstagram = async function(generatorUrl, redirectUrl, domain, shareObject){
 
     // Detect Safari 
     let safariAgent = navigator.userAgent.indexOf("Safari") > -1; 
@@ -78,8 +78,8 @@ let shareInstagram = async function(generatorUrl, shareObject){
                 url: generatorUrl,
                 payload: shareObject
                 },
-                redirect_url: 'Redirect',
-                domain: 'qmusic.be'
+                redirect_url: redirectUrl,
+                domain: domain
                 }
         })
 
