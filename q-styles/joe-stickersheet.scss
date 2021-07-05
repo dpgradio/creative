@@ -1,0 +1,66 @@
+@import 'joe-colors';
+@import 'joe-fonts';
+
+.joe-sticker{
+
+    &-button{
+        background: $q-red;
+        color: #fff;
+        text-transform: uppercase;
+        cursor: pointer;
+        height: 36px;
+        line-height: 36px;
+        white-space: nowrap;
+        font-size: 24px;
+        padding: 0 10px;
+        outline: none;
+        position: relative;
+        transition: background .1s ease-in;
+        align-items: center;
+        font-family: 'Cervo medium', sans-serif;
+        text-decoration: none;
+        letter-spacing: -0.03em;
+
+        &:hover{
+            transition: background .1s ease-in;
+            background: $q-red-dark;
+        }
+    }
+
+    &-form{
+        background: $q-teal;
+        padding: 20px;
+        width: 100%;
+
+        &-label{
+            color: white;
+            font-family: "Cervo medium", sans-serif;
+            letter-spacing: -0.03em;
+            text-align: left;
+        }
+
+        &-input{
+            padding: 5px;
+            text-align: left;
+            line-height: 24px;
+            font-size: 18px;
+            align-self: center;
+            background: white;
+            text-transform: uppercase;
+            font-family: "Cervo", sans-serif;
+            letter-spacing: -0.03em;
+
+            &::placeholer{
+                color: #999;
+                text-transform: uppercase;
+                font-family: "Cervo", sans-serif;
+                letter-spacing: -0.03em;
+            }
+        }
+
+        
+    }
+
+    
+
+}
