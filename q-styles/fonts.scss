@@ -7,7 +7,7 @@
     @each $item in ('.ttf', '.eot', '.woff', '.woff2', '.svg') {
       $result: append($result, url('#{$fontsBaseURL}#{$url}#{$item}'), 'comma');
     }
-  } @elseif $radio == joe {
+  } @else if $radio == joe {
     $fontsBaseURL: 'https://static1.qmusic.medialaancdn.be/store/static/fonts/';
     @each $item in ('.eot', '.woff', '.woff2') {
       $result: append($result, url('#{$fontsBaseURL}#{$url}#{$item}'), 'comma');
