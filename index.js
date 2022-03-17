@@ -1,10 +1,7 @@
-import {Q} from './q-sock'
-import hybrid from './src/utils/hybrid'
-import openLink from './src/utils/openLink'
-import Shareable from './src/share/Shareable'
-import ImageGeneratorProperties from './src/share/ImageGeneratorProperties'
-import ShareResult from './src/share/ShareResult'
 import axios from "axios"
+import {Q} from './q-sock'
+import hybrid from './utils/hybrid'
+import openLink from './utils/openLink'
 
 let Sock = Q
 
@@ -34,12 +31,6 @@ function apiClient(baseURL) {
 export {
   Sock,
   apiClient,
-  // Utilities
   hybrid,
   openLink,
-  // Share
-  // TODO: make share and utils importable separately, only when needed
-  Shareable,
-  ImageGeneratorProperties,
-  ShareResult,
 }
