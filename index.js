@@ -1,13 +1,14 @@
-import {Q} from './q-sock';
-import hybrid from './utils/hybrid'
-import axios from "axios";
+import {Q} from './q-sock'
+import hybrid from './src/utils/hybrid'
+import openLink from './src/utils/openLink'
+import axios from "axios"
 
-let Sock = Q;
+let Sock = Q
 
 function apiClient(baseURL) {
   const apiInstance = axios.create({
     baseURL
-  });
+  })
 
   apiInstance.interceptors.request.use(config => {
     if (config.appAuth) {
@@ -24,10 +25,7 @@ function apiClient(baseURL) {
     return config
   })
 
-  return apiInstance;
+  return apiInstance
 }
 
-export {Sock, hybrid, apiClient};
-
-
-
+export {Sock, hybrid, openLink, apiClient}
