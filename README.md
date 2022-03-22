@@ -28,25 +28,37 @@ Then:
 
 **Sharing Generator**
 
-First:
-        import { shareFacebook, shareInstagram } from 'q-creative'
-    
-Then:
-        
+Example:
 
-        await shareFacebook(
-                'title', 
-                'desc', 
-                'https://static.qmusic.be/acties/swipe_10s_share/fb/index1.html', 
-                "https://www.qmusic.be/nieuws/jij-bepaalt-de-volgorde-van-de-top-10-tindergewijs?s=5t_GTg",
-                "qmusic.be",
-                payload
-        )
+```js
+import { Shareable, ImageGeneratorProperties } from 'q-creative/share'
 
-        await shareInstagram(
-                'https://static.qmusic.be/acties/swipe_10s_share/insta/index2.html', 
-                "https://www.qmusic.be/nieuws/jij-bepaalt-de-volgorde-van-de-top-10-tindergewijs?s=5t_GTg",
-                'qmusic.be',
-                payload
-        )   
+const shareable = new Shareable()
+  .withTitle(`${this.name} is mijn seventies match!`)
+  .withDescription('Ontdek wie jouw seventies match is in de Generation Quiz van Joe!')
+  .withMessageText(`Mijn seventies match is ${this.name}, wat is die van jou?`)
+  .redirectTo('https://article_url.com')
+  .fromDomain('joe.be')
+
+// Facebook
+const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-70s-quiz-share-fb/index.html')
+  .withDimensions(1200, 630)
+  .withPayload({ results: this.matches });
+       
+(await shareable.generateUsingImage(image)).openFacebookUrl()
+
+// Instagram
+const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-70s-quiz-share-fb/index.html')
+  .withDimensions(1080, 1920)
+  .withPayload({ results: this.matches });
+       
+(await shareable.generateUsingImage(image)).openInstagramUrl()
+
+// Whatsapp
+const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-70s-quiz-share-fb/index.html')
+  .withDimensions(1200, 630)
+  .withPayload({ results: this.matches });
+       
+(await shareable.generateUsingImage(image)).openWhatsappUrl()
+```
         
