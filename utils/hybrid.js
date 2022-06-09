@@ -18,7 +18,7 @@ const detectApp = (userAgent) => {
   }
 }
 
-const appInfo = detectApp(navigator.userAgent)
+const appInfo = detectApp(window.appVersion || navigator.userAgent)
 
 // Check if the app is at least a certain version
 // This differs between brands, so we need to define per brand
@@ -61,8 +61,9 @@ export default {
     })
   },
   isNativeApp() {
-    return detectApp(navigator.userAgent).platform !== 'browser'
+    return appInfo.platform !== 'browser'
   },
+  appInfo,
   isVersion,
   on(method, fn) {
     if (!window._hybridEventSubscriptions[method]) { window._hybridEventSubscriptions[method] = [] }
