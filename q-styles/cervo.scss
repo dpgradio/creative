@@ -5,5 +5,9 @@
 }
 
 @font-face {
+  @include Font(qmusic,"Cervo", "cervo-medium-webfont", 600, normal);
+}
+
+@font-face {
   @include Font(qmusic,"Cervo medium", "cervo-medium-webfont", 600, normal);
 }
