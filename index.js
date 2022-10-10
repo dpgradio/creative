@@ -1,6 +1,7 @@
 import axios from "axios"
 import {Q} from './q-sock'
 import hybrid from './utils/hybrid'
+import gtm from './utils/gtm'
 import openLink from './utils/openLink'
 
 let Sock = Q
@@ -21,7 +22,7 @@ function apiClient(baseURL) {
         throw new Error("No currentUserToken available")
       }
     }
-  
+
     return config
   })
 
@@ -32,5 +33,6 @@ export {
   Sock,
   apiClient,
   hybrid,
+  gtm,
   openLink,
 }
