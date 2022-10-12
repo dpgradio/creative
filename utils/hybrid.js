@@ -7,7 +7,7 @@ window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
 const androidRegexp = /^(?<brand>.+)\/(?<storeVersion>[0-9.]+) \((?<buildName>.+); build:(?<buildVersion>\d+); (?<platform>Android) (?<osVersion>\d+); Sdk:(?<sdkVersion>\d+); Manufacturer:(?<manufacturer>.+); Model: (?<model>.+)\)/
 const iOSRegexp = /^(?<brand>.+)\/(?<buildVersion>[0-9.]+) \((?<buildName>.+); build:(?<internalBuildVersion>\d+); (?<platform>iOS) (?<osVersion>\d+\.\d+\.\d+)\)/
 
-export const detectApp = (userAgent) => {
+const detectApp = (userAgent) => {
   for (const regexp of [androidRegexp, iOSRegexp]) {
     const match = userAgent.match(regexp)
     if (match) { return match.groups }

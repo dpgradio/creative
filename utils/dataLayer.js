@@ -1,12 +1,11 @@
-import {detectApp} from "./hybrid";
-import {hybrid} from "../index";
+import hybrid from "./hybrid";
 import jwtDecode from "jwt-decode";
 
 window.dataLayer = window.dataLayer || [];
 
 let virtualPageParams = {
   ...window.location,
-  platform: detectApp(window.appVersion || navigator.userAgent).platform
+  platform: hybrid.appInfo.platform
 }
 
 export function setVirtualPageViewParams(params) {
