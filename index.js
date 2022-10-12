@@ -1,7 +1,7 @@
 import axios from "axios"
 import {Q} from './q-sock'
 import hybrid from './utils/hybrid'
-import gtm from './utils/gtm'
+import datalayer from './utils/datalayer'
 import openLink from './utils/openLink'
 
 let Sock = Q
@@ -33,6 +33,6 @@ export {
   Sock,
   apiClient,
   hybrid,
-  gtm,
+  datalayer,
   openLink,
 }
