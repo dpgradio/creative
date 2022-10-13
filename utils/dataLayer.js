@@ -1,4 +1,4 @@
-import hybrid from "./hybrid";
+import hybrid, {isVersion} from "./hybrid";
 import jwtDecode from "jwt-decode";
 
 window.dataLayer = window.dataLayer || [];
@@ -8,7 +8,7 @@ let virtualPageParams = {
   platform: hybrid.appInfo.platform
 }
 
-export function setVirtualPageViewParams(params) {
+function setVirtualPageViewParams(params) {
   virtualPageParams = {
     ...virtualPageParams,
     ...params
@@ -46,3 +46,7 @@ hybrid.on("authenticated", ({ radioToken }) => {
     });
   }
 });
+
+export default {
+  setVirtualPageViewParams
+}
