@@ -1,4 +1,4 @@
-import hybrid, {isVersion} from "./hybrid";
+import hybrid from "./hybrid";
 import jwtDecode from "jwt-decode";
 
 window.dataLayer = window.dataLayer || [];
@@ -13,6 +13,17 @@ function setVirtualPageViewParams(params) {
     ...virtualPageParams,
     ...params
   }
+
+  if (hybrid.appInfo.platform === 'browser') {
+    pushVirtualPageViewEvent()
+  }
+}
+
+function pushVirtualPageViewEvent() {
+  window.dataLayer.push({
+    event: "VirtualPageView",
+    virtualPageURL: virtualPageParams
+  });
 }
 
 hybrid.on("appLoad", ({ radioToken }) => {
@@ -27,10 +38,7 @@ hybrid.on("appLoad", ({ radioToken }) => {
     })
   }
 
-  window.dataLayer.push({
-    event: "VirtualPageView",
-    virtualPageURL: virtualPageParams
-  });
+  pushVirtualPageViewEvent()
 });
 
 hybrid.on("authenticated", ({ radioToken }) => {
