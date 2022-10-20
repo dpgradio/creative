@@ -33,6 +33,7 @@ Promise.all([VirtualPageViewReadyPromise, AppLoadedPromise], () => {
 });
 
 if (hybrid.appInfo.platform === 'browser') {
+  // currently we don't wait for user token, like in app
   AppLoadedResolve()
 } else {
   hybrid.on("appLoad", ({radioToken}) => {
