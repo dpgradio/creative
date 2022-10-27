@@ -25,7 +25,7 @@ function setVirtualPageViewReady() {
   VirtualPageViewReadyResolve()
 }
 
-Promise.all([VirtualPageViewReadyPromise, AppLoadedPromise], () => {
+Promise.all([VirtualPageViewReadyPromise, AppLoadedPromise]).then(() => {
   window.dataLayer.push({
     event: "VirtualPageView",
     virtualPageURL: virtualPageParams
