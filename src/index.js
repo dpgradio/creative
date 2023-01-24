@@ -1,5 +1,5 @@
 import axios from "axios"
-import {Q} from './q-sock'
+import {Q} from '../q-sock'
 import hybrid from './utils/hybrid'
 import dataLayer from './utils/dataLayer'
 import openLink from './utils/openLink'
