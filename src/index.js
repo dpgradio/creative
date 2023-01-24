@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { Q } from '../q-sock'
 import hybrid from './utils/hybrid'
-import dataLayer from './utils/dataLayer'
 import openLink from './utils/openLink'
+import loadScript from './utils/loadScript'
+import privacy from './privacy/privacy'
+import dataLayer from './privacy/dataLayer'
 
 let Sock = Q
 
@@ -29,4 +31,4 @@ function apiClient(baseURL) {
   return apiInstance
 }
 
-export { Sock, apiClient, hybrid, dataLayer, openLink }
+export { Sock, apiClient, hybrid, openLink, loadScript, privacy, dataLayer }

@@ -1,3 +1,7 @@
+import jwtDecode from 'jwt-decode'
+
+// TODO: Refactor
+
 // Hook this on window so it can be required in multiple packs
 window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
 
@@ -52,6 +56,38 @@ const ensureTriggerExists = (method) => {
   }
 }
 
+const on = (method, fn) => {
+  if (!window._hybridEventSubscriptions[method]) {
+    window._hybridEventSubscriptions[method] = []
+  }
+  window._hybridEventSubscriptions[method].push({ fn, once: false })
+  ensureTriggerExists(method)
+}
+
+let cachedRadioTokenOnLoad = null
+on('appLoad', ({ radioToken }) => {
+  if (radioToken) {
+    cachedRadioTokenOnLoad = radioToken
+  }
+})
+
+const radioTokenOnLoad = () => {
+  if (cachedRadioTokenOnLoad) {
+    return cachedRadioTokenOnLoad
+  }
+  return new Promise((resolve, reject) => {
+    on('appLoad', ({ radioToken }) => {
+      if (radioToken) {
+        resolve(radioToken)
+      } else {
+        reject()
+      }
+    })
+  })
+}
+
+const decodeRadioToken = (token) => jwtDecode(token)
+
 export default {
   install(Vue) {
     const hybrid = this
@@ -73,13 +109,9 @@ export default {
   },
   appInfo,
   isVersion,
-  on(method, fn) {
-    if (!window._hybridEventSubscriptions[method]) {
-      window._hybridEventSubscriptions[method] = []
-    }
-    window._hybridEventSubscriptions[method].push({ fn, once: false })
-    ensureTriggerExists(method)
-  },
+  radioTokenOnLoad,
+  decodeRadioToken,
+  on,
   one(method, fn) {
     if (!window._hybridEventSubscriptions[method]) {
       window._hybridEventSubscriptions[method] = []
