@@ -48,7 +48,7 @@ export default class Shareable {
           domain: this.domain,
         },
       })
-        .then(response => resolve(new ShareResult(this, response.data)))
+        .then((response) => resolve(new ShareResult(this, response.data)))
         .catch(reject)
     })
   }
