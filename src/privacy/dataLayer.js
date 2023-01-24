@@ -28,10 +28,7 @@ class DataLayer {
   pushUserWhenAuthenticated() {
     hybrid.on('authenticated', ({ radioToken }) => {
       if (radioToken) {
-        window.dataLayer.push({
-          event: 'account_id',
-          ...this._formatUserInformation(radioToken),
-        })
+        this.pushEvent('account_id', this._formatUserInformation(radioToken))
       }
     })
   }
@@ -54,7 +51,7 @@ class DataLayer {
       return {}
     }
     try {
-      const radioToken = await hybrid.radioTokenOnLoad()
+      const radioToken = await hybrid.appLoaded()
       return this._formatUserInformation(radioToken)
     } catch {
       return {}

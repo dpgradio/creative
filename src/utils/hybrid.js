@@ -1,11 +1,6 @@
 import jwtDecode from 'jwt-decode'
 
-// TODO: Refactor
-
-// Hook this on window so it can be required in multiple packs
-window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
-
-// Modern versions of the radio apps set up specific User-Agents
+// Modern versions of the radio apps set up specific User-Agents:
 // Android User-Agent: Qmusic/7.6.1 (nl.qmusic.app; build:21726; Android 11; Sdk:30; Manufacturer:OnePlus; Model: IN2013) OkHttp/ 4.9.1
 // iOS User-Agent: Joe/265 (be.vmma.joe.app; build:1; iOS 14.8.1) Alamofire/265
 const androidRegexp =
@@ -13,112 +8,32 @@ const androidRegexp =
 const iOSRegexp =
   /^(?<brand>.+)\/(?<buildVersion>[0-9.]+) \((?<buildName>.+); build:(?<internalBuildVersion>\d+); (?<platform>iOS) (?<osVersion>\d+\.\d+\.\d+)\)/
 
-const detectApp = (userAgent) => {
-  for (const regexp of [androidRegexp, iOSRegexp]) {
-    const match = userAgent.match(regexp)
-    if (match) {
-      return match.groups
-    }
-  }
+class Hybrid {
+  constructor() {
+    // Hook this on window so it can be required in multiple packs
+    window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
 
-  return {
-    platform: 'browser',
-  }
-}
+    this.appInfo = this.detectApp(window.appVersion || navigator.userAgent)
 
-const appInfo = detectApp(window.appVersion || navigator.userAgent)
-
-// Check if the app is at least a certain version
-// This differs between brands, so we need to define per brand
-export const isVersion = ({ android, ios }) => {
-  const { platform, buildName, buildVersion } = appInfo
-
-  return (
-    (platform === 'Android' && android[buildName] && android[buildName] <= parseInt(buildVersion, 10)) ||
-    (platform === 'iOS' && ios <= parseInt(buildVersion, 10))
-  )
-}
-
-const ensureTriggerExists = (method) => {
-  if (window[method]) {
-    return
-  }
-
-  window[method] = (args) => {
-    const callbacks = window._hybridEventSubscriptions[method] || []
-    for (const cb of callbacks) {
-      cb.fn(args)
-      if (cb.once) {
-        cb.delete = true
-      } // Mark for deletion
-    }
-    window._hybridEventSubscriptions[method] = callbacks.filter((cb) => !cb.delete) // Delete all marked
-  }
-}
-
-const on = (method, fn) => {
-  if (!window._hybridEventSubscriptions[method]) {
-    window._hybridEventSubscriptions[method] = []
-  }
-  window._hybridEventSubscriptions[method].push({ fn, once: false })
-  ensureTriggerExists(method)
-}
-
-let cachedRadioTokenOnLoad = null
-on('appLoad', ({ radioToken }) => {
-  if (radioToken) {
-    cachedRadioTokenOnLoad = radioToken
-  }
-})
-
-const radioTokenOnLoad = () => {
-  if (cachedRadioTokenOnLoad) {
-    return cachedRadioTokenOnLoad
-  }
-  return new Promise((resolve, reject) => {
-    on('appLoad', ({ radioToken }) => {
-      if (radioToken) {
-        resolve(radioToken)
-      } else {
-        reject()
-      }
+    this._cachedRadioTokenOnLoad = undefined
+    this.on('appLoad', ({ radioToken }) => {
+      this._cachedRadioTokenOnLoad = radioToken ?? null
     })
-  })
-}
+  }
 
-const decodeRadioToken = (token) => jwtDecode(token)
-
-export default {
-  install(Vue) {
-    const hybrid = this
-
-    Vue.directive('external', {
-      bind(el, { modifiers: { inApp } }) {
-        inApp = !!inApp // Force false / true
-
-        el.addEventListener('click', (e) => {
-          const url = el.getAttribute('href')
-          hybrid.call('navigateTo', { url, inApp })
-          e.preventDefault()
-        })
-      },
-    })
-  },
   isNativeApp() {
-    return appInfo.platform !== 'browser'
-  },
-  appInfo,
-  isVersion,
-  radioTokenOnLoad,
-  decodeRadioToken,
-  on,
-  one(method, fn) {
-    if (!window._hybridEventSubscriptions[method]) {
-      window._hybridEventSubscriptions[method] = []
-    }
-    window._hybridEventSubscriptions[method].push({ fn, once: true })
-    ensureTriggerExists(method)
-  },
+    return this.appInfo.platform !== 'browser'
+  }
+
+  isVersion({ android, ios }) {
+    const { platform, buildName, buildVersion } = this.appInfo
+
+    return (
+      (platform === 'Android' && android[buildName] && android[buildName] <= parseInt(buildVersion, 10)) ||
+      (platform === 'iOS' && ios <= parseInt(buildVersion, 10))
+    )
+  }
+
   call(method, options = {}) {
     if (window.webkit && window.webkit.messageHandlers) {
       const handler = window.webkit.messageHandlers[method]
@@ -130,8 +45,63 @@ export default {
       // ref: https://bugs.chromium.org/p/chromium/issues/detail?id=514628
       window.Android[method](JSON.stringify(options))
     } else {
-      console.log(method, options)
-      // Do nothing for now
+      console.error('Call on unsupported device', method, options)
     }
-  },
+  }
+
+  on(method, fn, once = false) {
+    if (!window._hybridEventSubscriptions[method]) {
+      window._hybridEventSubscriptions[method] = []
+    }
+    window._hybridEventSubscriptions[method].push({ fn, once })
+    this.ensureTriggerExists(method)
+  }
+
+  one(method, fn) {
+    this.one(method, fn, true)
+  }
+
+  appLoaded() {
+    return new Promise((resolve, reject) => {
+      if (this._cachedRadioTokenOnLoad !== undefined) {
+        return resolve(this._cachedRadioTokenOnLoad)
+      }
+      this.on('appLoad', ({ radioToken }) => {
+        radioToken ? resolve(radioToken) : reject()
+      })
+    })
+  }
+
+  ensureTriggerExists(method) {
+    if (window[method]) {
+      return
+    }
+
+    window[method] = (args) => {
+      const callbacks = window._hybridEventSubscriptions[method] || []
+      for (const callback of callbacks) {
+        callback.fn(args)
+        if (callback.once) {
+          callback.delete = true // Mark for deletion
+        }
+      }
+      window._hybridEventSubscriptions[method] = callbacks.filter((callback) => !callback.delete) // Delete all marked
+    }
+  }
+
+  detectApp(userAgent) {
+    for (const regexp of [androidRegexp, iOSRegexp]) {
+      const match = userAgent.match(regexp)
+      if (match) {
+        return match.groups
+      }
+    }
+    return { platform: 'browser' }
+  }
+
+  decodeRadioToken(token) {
+    return jwtDecode(token)
+  }
 }
+
+export default new Hybrid()
