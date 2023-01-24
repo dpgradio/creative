@@ -17,7 +17,7 @@ describe('opening a link in the app', () => {
 
     openLink('https://www.google.com/')
 
-    expect(hybrid.call).toHaveBeenCalledWith('navigateTo', { inApp: false, url: 'https://www.google.com/'})
+    expect(hybrid.call).toHaveBeenCalledWith('navigateTo', { inApp: false, url: 'https://www.google.com/' })
   })
 })
 
