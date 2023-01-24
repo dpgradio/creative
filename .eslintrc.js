@@ -5,8 +5,5 @@ module.exports = {
     node: true,
   },
   extends: ['@dpgradio/eslint-config-recommended'],
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 'latest',
-  },
+  parser: '@babel/eslint-parser',
 }
