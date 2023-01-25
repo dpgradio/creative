@@ -1,14 +1,16 @@
+export { default as hybrid } from './app/hybrid'
+
+export { default as privacy } from './privacy/privacy'
+export { default as dataLayer } from './privacy/dataLayer'
+
+export { default as loadScript } from './utils/loadScript'
+export { default as openLink } from './utils/openLink'
+
+export { Q as Sock } from './q-sock'
+
+// TODO: Replace with new API client implementation based on fetch
 import axios from 'axios'
-import { Q } from './q-sock'
-import hybrid from './app/hybrid'
-import openLink from './utils/openLink'
-import loadScript from './utils/loadScript'
-import privacy from './privacy/privacy'
-import dataLayer from './privacy/dataLayer'
-
-let Sock = Q
-
-function apiClient(baseURL) {
+export function apiClient(baseURL) {
   const apiInstance = axios.create({
     baseURL,
   })
@@ -30,5 +32,3 @@ function apiClient(baseURL) {
 
   return apiInstance
 }
-
-export { Sock, apiClient, hybrid, openLink, loadScript, privacy, dataLayer }
