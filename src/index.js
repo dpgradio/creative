@@ -6,7 +6,7 @@ export { default as dataLayer } from './privacy/dataLayer'
 export { default as loadScript } from './utils/loadScript'
 export { default as openLink } from './utils/openLink'
 
-export { Q as Sock } from './q-sock'
+export { default as socket } from './socket/socket'
 
 // TODO: Replace with new API client implementation based on fetch
 import axios from 'axios'
