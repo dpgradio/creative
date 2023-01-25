@@ -16,8 +16,8 @@ class Hybrid {
     this.appInfo = this.detectApp(window.appVersion || navigator.userAgent)
 
     this._cachedRadioTokenOnLoad = undefined
-    this.on('appLoad', ({ radioToken }) => {
-      this._cachedRadioTokenOnLoad = radioToken ?? null
+    this.on('appLoad', (context) => {
+      this._cachedRadioTokenOnLoad = context?.radioToken ?? null
     })
   }
 
@@ -66,8 +66,8 @@ class Hybrid {
       if (this._cachedRadioTokenOnLoad !== undefined) {
         return resolve(this._cachedRadioTokenOnLoad)
       }
-      this.on('appLoad', ({ radioToken }) => {
-        radioToken ? resolve(radioToken) : reject()
+      this.on('appLoad', (context) => {
+        context?.radioToken ? resolve(context.radioToken) : reject('No radio token provided')
       })
     })
   }

@@ -53,7 +53,8 @@ class DataLayer {
     try {
       const radioToken = await hybrid.appLoaded()
       return this._formatUserInformation(radioToken)
-    } catch {
+    } catch (error) {
+      console.error('User information could not be loaded:', error)
       return {}
     }
   }
