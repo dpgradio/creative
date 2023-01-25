@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Q } from './q-sock'
-import hybrid from './utils/hybrid'
+import hybrid from './app/hybrid'
 import openLink from './utils/openLink'
 import loadScript from './utils/loadScript'
 import privacy from './privacy/privacy'

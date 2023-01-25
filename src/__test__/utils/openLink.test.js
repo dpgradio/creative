@@ -1,5 +1,5 @@
 import { describe, expect, test, jest } from '@jest/globals'
-import hybrid from '../../utils/hybrid'
+import hybrid from '../../app/hybrid'
 import openLink from '../../utils/openLink'
 
 jest.mock('../../utils/hybrid.js', () => ({

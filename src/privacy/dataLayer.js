@@ -1,4 +1,4 @@
-import hybrid from '../utils/hybrid'
+import hybrid from '../app/hybrid'
 import loadScript from '../utils/loadScript'
 
 class DataLayer {
