@@ -2,7 +2,7 @@
   "name": "q-creative",
   "version": "4.0.1",
   "description": "Creative Method Library For Qmusic",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "babel src -d dist",
     "test": "jest",
@@ -16,6 +16,7 @@
   "keywords": [
     "qmusic"
   ],
+  "type": "module",
   "author": "Bram Schrooyen <bram.schrooyen@persgroep.net>",
   "license": "ISC",
   "dependencies": {

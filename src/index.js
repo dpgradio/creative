@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Q } from '../q-sock'
+import { Q } from './q-sock'
 import hybrid from './utils/hybrid'
 import openLink from './utils/openLink'
 import loadScript from './utils/loadScript'
