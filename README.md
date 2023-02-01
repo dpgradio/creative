@@ -37,6 +37,9 @@ import { configuration } from '@dpgradio/creative'
 await configuration.retrieveConfig(appId)
 configuration.setStation(stationId)
 ```
+You can change the station later on at any time without having to retrieve the config again.
+The API client will automatically use the correct station.
+Privacy and tracking need to be reinitalized after changing the station.
 
 The config can now be used as follows:
 
