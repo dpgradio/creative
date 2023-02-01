@@ -1,0 +1,48 @@
+@font-face {
+	font-family: Cervo;
+	src: url(https://fonts.qmusic.be/cervo-light-webfont.ttf), url(https://fonts.qmusic.be/cervo-light-webfont.eot), url(https://fonts.qmusic.be/cervo-light-webfont.woff), url(https://fonts.qmusic.be/cervo-light-webfont.woff2), url(https://fonts.qmusic.be/cervo-light-webfont.svg);
+	font-weight: 400;
+	font-style: normal
+}
+
+@font-face {
+	font-family: Cervo;
+	src: url(https://fonts.qmusic.be/cervo-medium-webfont.ttf), url(https://fonts.qmusic.be/cervo-medium-webfont.eot), url(https://fonts.qmusic.be/cervo-medium-webfont.woff), url(https://fonts.qmusic.be/cervo-medium-webfont.woff2), url(https://fonts.qmusic.be/cervo-medium-webfont.svg);
+	font-weight: 600;
+	font-style: normal
+}
+
+@font-face {
+	font-family: Qarla;
+	src: url(https://fonts.qmusic.be/qarla-bold-webfont.ttf), url(https://fonts.qmusic.be/qarla-bold-webfont.eot), url(https://fonts.qmusic.be/qarla-bold-webfont.woff), url(https://fonts.qmusic.be/qarla-bold-webfont.woff2), url(https://fonts.qmusic.be/qarla-bold-webfont.svg);
+	font-weight: 700;
+	font-style: normal
+}
+
+@font-face {
+	font-family: Qarla;
+	src: url(https://fonts.qmusic.be/qarla-bolditalic-webfont.ttf), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.eot), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.woff), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.woff2), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.svg);
+	font-weight: 700;
+	font-style: italic
+}
+
+@font-face {
+	font-family: Qarla;
+	src: url(https://fonts.qmusic.be/qarla-italic-webfont.ttf), url(https://fonts.qmusic.be/qarla-italic-webfont.eot), url(https://fonts.qmusic.be/qarla-italic-webfont.woff), url(https://fonts.qmusic.be/qarla-italic-webfont.woff2), url(https://fonts.qmusic.be/qarla-italic-webfont.svg);
+	font-weight: 400;
+	font-style: italic
+}
+
+@font-face {
+	font-family: Qarla;
+	src: url(https://fonts.qmusic.be/qarla-regular-webfont.ttf), url(https://fonts.qmusic.be/qarla-regular-webfont.eot), url(https://fonts.qmusic.be/qarla-regular-webfont.woff), url(https://fonts.qmusic.be/qarla-regular-webfont.woff2), url(https://fonts.qmusic.be/qarla-regular-webfont.svg);
+	font-weight: 400;
+	font-style: normal
+}
+
+@font-face {
+	font-family: QMarkMyWords;
+	src: url(https://fonts.qmusic.be/qmarkmywords-webfont.ttf), url(https://fonts.qmusic.be/qmarkmywords-webfont.eot), url(https://fonts.qmusic.be/qmarkmywords-webfont.woff), url(https://fonts.qmusic.be/qmarkmywords-webfont.woff2), url(https://fonts.qmusic.be/qmarkmywords-webfont.svg);
+	font-weight: 400;
+	font-style: normal
+}

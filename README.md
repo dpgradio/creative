@@ -1,32 +1,24 @@
-###### This is the Creative Method Library for Qmusic.
+# Q-Creative
 
-**For fonts:**
+## CSS: Fonts and Colors
 
-   In scss stylesheet:
+Note that version 5 of this package provides fonts and colors as pure css.
+The variables and fonts are no longer available as scss variables/imports.
 
-   Qmusic: **@import "~q-creative/q-styles/q-fonts"**
-   
-   Joe: **@import "~q-creative/q-styles/joe-fonts"**
-   
-   Willy: **@import "~q-creative/q-styles/willy-fonts"**
+Example:
 
+```css
+@import "q-creative/styles/colors/qmusic";
+@import "q-creative/styles/fonts/qmusic";
 
+body, html {
+  background-color: rgb(var(--q-teal));
+  color: rgb(var(--q-grey) / 0.8);
+  font-family: 'QMarkMyWords';
+}
+```
 
-**For socket:** 
-
-
-First:
-        import { Sock } from 'q-creative'
-    
-Then:
-        window.qSocketLoaded = qSocketLoaded(Sock);
-        function qSocketLoaded (Q) {
-            var q = Q.connect('yourChannel')
-            q.subscribe('plays').on('play', yourFunction, {backlog: 1});
-        }
-
-
-**Sharing Generator**
+## Sharing Generator
 
 Example:
 
@@ -61,4 +53,3 @@ const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-
        
 (await shareable.generateUsingImage(image)).openWhatsappUrl()
 ```
-        
