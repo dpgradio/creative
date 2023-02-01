@@ -1,4 +1,10 @@
-# Q-Creative
+# @dpgradio/creative
+
+## Installation
+
+```bash
+yarn add @dpgradio/creative
+```
 
 ## CSS: Fonts and Colors
 
