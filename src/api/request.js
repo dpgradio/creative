@@ -1,4 +1,4 @@
-import tap from '../utils/tap'
+import tap from '../utils/tap.js'
 
 export default class Request {
   constructor(baseUrl, version) {

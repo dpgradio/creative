@@ -1,9 +1,9 @@
-import { config } from '../config/config'
-import Request from './request'
-import Channels from './endpoints/channels'
-import Config from './endpoints/config'
-import Members from './endpoints/Members'
-import tap from '../utils/tap'
+import { config } from '../config/config.js'
+import Request from './request.js'
+import tap from '../utils/tap.js'
+import Channels from './endpoints/Channels.js'
+import Config from './endpoints/Config.js'
+import Members from './endpoints/Members.js'
 
 const GLOBAL_API_URL = 'https://api.radio.dpgmedia.cloud'
 

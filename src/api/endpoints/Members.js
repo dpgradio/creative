@@ -1,4 +1,4 @@
-import Endpoint from './Endpoint'
+import Endpoint from './Endpoint.js'
 
 export default class Members extends Endpoint {
   async me() {

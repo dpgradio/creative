@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars -- used in JSDoc
-import { Api } from '../api'
+import { Api } from '../api.js'
 // eslint-disable-next-line no-unused-vars -- used in JSDoc
-import Request from '../request'
+import Request from '../request.js'
 
 export default class Endpoint {
   /**

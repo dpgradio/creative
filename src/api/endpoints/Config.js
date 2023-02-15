@@ -1,4 +1,4 @@
-import Endpoint from './Endpoint'
+import Endpoint from './Endpoint.js'
 
 export default class Config extends Endpoint {
   async global() {
