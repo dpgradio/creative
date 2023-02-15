@@ -1,4 +1,5 @@
 import hybrid from '../app/hybrid'
+import { config } from '../config/config'
 import loadScript from '../utils/loadScript'
 
 class DataLayer {
@@ -33,7 +34,7 @@ class DataLayer {
     })
   }
 
-  async pushVirtualPageView(brand) {
+  async pushVirtualPageView(brand = config('gtm_brand')) {
     const user = await this._getUserInformationOnLoad()
 
     this.pushEvent('VirtualPageView', {

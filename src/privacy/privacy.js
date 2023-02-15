@@ -1,3 +1,4 @@
+import { config } from '../config/config'
 import loadScript from '../utils/loadScript'
 
 class Privacy {
@@ -15,7 +16,11 @@ class Privacy {
    * @param {string}  websiteUrl         e.g. 'https://qmusic.nl'
    * @param {string}  cmpCname           e.g. 'https://cmp.qmusic.nl'
    */
-  initialize(privacyManagerId, websiteUrl, cmpCname) {
+  initialize(
+    privacyManagerId = config('privacy_manager_id'),
+    websiteUrl = config('website_url'),
+    cmpCname = config('cmp_cname')
+  ) {
     window.cmpProperties = {
       privacyManagerId,
       cmpCname,
