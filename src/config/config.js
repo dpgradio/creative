@@ -1,4 +1,4 @@
-import api from '../api/api'
+import api from '../api/api.js'
 
 const dotSyntaxAccess = (object, path) => path.split('.').reduce((o, p) => o[p], object)
 
@@ -33,6 +33,11 @@ class Configuration {
     if (!this.appId) {
       throw new Error('No app identifier set. First use [config.retrieveConfig] to retrieve the configuration.')
     }
+    if (!this.rawConfig[this.stationId]?.[this.appId]) {
+      throw new Error(
+        `No configuration found for station [${this.stationId}] and app [${this.appId}]. Make sure the app is enabled for this station.`
+      )
+    }
 
     const stationConfig = {
       ...this.rawConfig[this.stationId],
@@ -43,7 +48,7 @@ class Configuration {
   }
 
   async replaceSchema(appId, schema) {
-    api.global().config.updateSchema(appId, schema)
+    await api.global().config.updateSchema(appId, schema)
   }
 }
 
