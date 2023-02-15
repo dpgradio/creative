@@ -15,10 +15,11 @@ class Configuration {
     return this
   }
 
-  async retrieveConfig(appId) {
+  async retrieveConfig(appId, ...stationIds) {
     this.appId = appId
+    this.stationId = stationIds[0]
 
-    this.rawConfig = await api.global().config.app(appId)
+    this.rawConfig = await api.global().config.app(appId, stationIds)
 
     return this
   }

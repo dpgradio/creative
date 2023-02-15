@@ -34,8 +34,11 @@ The configuration will also be used by other components of this package (e.g. pr
 ```js
 import { configuration } from '@dpgradio/creative'
 
-await configuration.retrieveConfig(appId)
-configuration.setStation(stationId)
+await configuration.retrieveConfig(appId, stationIdA, stationIdB, stationIdC)
+
+// By default the first station ID (stationIdA) is used as the current station of the configuration.
+// If you want to use a different station, you can do so by calling:
+configuration.setStation(stationIdC)
 ```
 You can change the station later on at any time without having to retrieve the config again.
 The API client will automatically use the correct station.
