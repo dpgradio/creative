@@ -1,21 +1,16 @@
-import api from '../src/api/api'
-import configuration from '../src/config/config'
+import api from '../src/api/api.js'
+import configuration from '../src/config/config.js'
 
-const main = async () => {
-  const appId = 'greety'
-  const stationId = 'qmusic_be'
+const appId = 'greety'
+const stationId = 'qmusic_be'
 
-  await configuration.retrieveConfig(appId)
-  configuration.setStation(stationId)
+await configuration.retrieveConfig(appId, stationId)
 
-  const channels = await api.channels.all()
+const channels = await api.channels.all()
 
-  console.log(channels)
+console.log(channels)
 
-  const token = '<radio-token-here>'
-  const profile = await api.setRadioToken(token).members.me()
+const token = '<radio-token-here>'
+const profile = await api.setRadioToken(token).members.me()
 
-  console.log(profile)
-}
-
-main()
+console.log(profile)

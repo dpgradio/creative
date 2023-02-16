@@ -1,13 +1,13 @@
-import configuration, { config } from '../src/config/config'
+import configuration, { config } from '../src/config/config.js'
 
-const main = async () => {
-  const appId = 'greety'
-  const stationId = 'qmusic_be'
+const appId = 'greety'
+const stationIdA = 'qmusic_be'
+const stationIdB = 'qmusic_nl'
 
-  await configuration.retrieveConfig(appId)
-  configuration.setStation(stationId)
+await configuration.retrieveConfig(appId, stationIdA, stationIdB)
 
-  console.log(config('app'))
-}
+console.log(config('app')) // greety config of qmusic_be
 
-main()
+configuration.setStation(stationIdB)
+
+console.log(config('app')) // greety config of qmusic_nl
