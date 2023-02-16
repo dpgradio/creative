@@ -20,17 +20,10 @@
   "author": "Bram Schrooyen <bram.schrooyen@persgroep.net>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
     "jwt-decode": "^3.1.2",
-    "node-fetch": "^3.3.0",
-    "sass-loader": "^7.1.0",
     "sockjs-client": "^1.6.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.20.7",
-    "@babel/core": "^7.20.12",
-    "@babel/eslint-parser": "^7.19.1",
-    "@babel/preset-env": "^7.20.2",
     "@dpgradio/eslint-config-recommended": "^0.0.1",
     "eslint": "^8.32.0",
     "jest": "^29.4.0",
