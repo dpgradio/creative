@@ -1,23 +1,22 @@
 {
-  "name": "q-creative",
-  "version": "4.0.1",
-  "description": "Creative Method Library For Qmusic",
+  "name": "@dpgradio/creative",
+  "version": "5.0.0",
+  "description": "Support package for standalone Javascript applications",
   "main": "src/index.js",
   "scripts": {
-    "build": "babel src -d dist",
     "test": "jest",
     "lint-check": "eslint --ext .js --ignore-path .gitignore src",
     "lint": "yarn lint-check --fix"
   },
   "repository": {
     "type": "git",
-    "url": "git://q-creative"
+    "url": "https://github.com/dpgradio/creative.git"
   },
   "keywords": [
     "qmusic"
   ],
   "type": "module",
-  "author": "Bram Schrooyen <bram.schrooyen@persgroep.net>",
+  "author": "DPG Media",
   "license": "ISC",
   "dependencies": {
     "jwt-decode": "^3.1.2",
