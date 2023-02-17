@@ -23,7 +23,7 @@ export class Api {
   }
 
   get baseUrl() {
-    return this.baseUrlOverride || config('apiBaseUrl')
+    return this.baseUrlOverride || config('api_base_url')
   }
 
   request() {
