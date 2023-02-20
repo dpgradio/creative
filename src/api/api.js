@@ -4,6 +4,7 @@ import tap from '../utils/tap.js'
 import Channels from './endpoints/Channels.js'
 import Config from './endpoints/Config.js'
 import Members from './endpoints/Members.js'
+import Ratings from './endpoints/Ratings.js'
 
 const GLOBAL_API_URL = 'https://api.radio.dpgmedia.cloud'
 
@@ -20,6 +21,7 @@ export class Api {
     this.channels = new Channels(this)
     this.config = new Config(this)
     this.members = new Members(this)
+    this.ratings = new Ratings(this)
   }
 
   get baseUrl() {
