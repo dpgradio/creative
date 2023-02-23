@@ -69,6 +69,8 @@ export class Api {
 
   clone() {
     return tap(new Api(this.baseUrlOverride, this.version), (api) => {
+      api.apiKey = this.apiKey
+      api.radioToken = this.radioToken
       api.requestModifiers = this.requestModifiers
       api.errorHandlers = this.errorHandlers
     })

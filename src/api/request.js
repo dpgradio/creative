@@ -96,8 +96,13 @@ export default class Request {
 
     const endpointWithoutSlash = endpoint.replace(/^\/+/, '')
 
-    return tap(new URL(`${baseUrlWithProtocol}/${this.version}/${endpointWithoutSlash}`), (url) => {
-      url.search = new URLSearchParams(this.queryParameters).toString()
+    const urlParts = [baseUrlWithProtocol, this.version, endpointWithoutSlash].filter(Boolean)
+
+    return tap(new URL(urlParts.join('/')), (url) => {
+      url.search = new URLSearchParams({
+        ...Object.fromEntries(new URLSearchParams(url.search)),
+        ...this.queryParameters,
+      }).toString()
     })
   }
 }

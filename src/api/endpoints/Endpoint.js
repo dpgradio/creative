@@ -2,6 +2,7 @@
 import { Api } from '../api.js'
 // eslint-disable-next-line no-unused-vars -- used in JSDoc
 import Request from '../request.js'
+import PaginatedResponse from '../PaginatedResponse.js'
 
 export default class Endpoint {
   /**
@@ -33,5 +34,25 @@ export default class Endpoint {
       throw new Error(`Key '${key}' not found in response: ${JSON.stringify(response)}`)
     }
     return response[key]
+  }
+
+  /**
+   * @param {requestCallback} callback
+   * @returns {PaginatedResponse}
+   */
+  async requestPaginatedData(callback, key = 'data') {
+    const response = await callback(this.api.request())
+
+    if (response === null) {
+      throw new Error(`Endpoint returned invalid JSON.`)
+    }
+    if (response[key] === undefined) {
+      throw new Error(`Key '${key}' not found in response: ${JSON.stringify(response)}`)
+    }
+    if (response.pagination === undefined) {
+      throw new Error(`Key 'pagination' not found in response: ${JSON.stringify(response)}`)
+    }
+
+    return new PaginatedResponse(response, key)
   }
 }
