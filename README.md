@@ -225,8 +225,10 @@ const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-
 
 This package provides a number of utility functions.
 
-| Function                        | Description                                                   |
-| ------------------------------- | -----------                                                   |
-| `loadScript(url, { timeout })`  | Dynammically loads a JS script.                               |
-| `openLink(url)`                 | App-compatible link opener.                                   |
-| `tap(value, callback)`          | Invokes `callback` with the `value` and then returns `value`. |
+| Function                        | Description                                                                              |
+| ------------------------------- | ---------------------------------------------------------------------------------------- |
+| `loadScript(url, { timeout })`  | Dynammically loads a JS script.                                                          |
+| `openLink(url)`                 | App-compatible link opener.                                                              |
+| `tap(value, callback)`          | Invokes `callback` with the `value` and then returns `value`.                            |
+| `cdnImageUrl(endpoint[, size])` | Get a full image URL for an endpoint in a given size (`w480`, `w800`, `w1200`, `w2400`). |
+| `cdnUrl(endpoint)`              | Get a full CDN URL for a given endpoint.                                                 |
