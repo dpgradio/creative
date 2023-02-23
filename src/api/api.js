@@ -17,6 +17,11 @@ export class Api {
 
     this.requestModifiers = []
 
+    this.errorHandlers = []
+
+    this.apiKey = null
+    this.radioToken = null
+
     // Endpoints
     this.channels = new Channels(this)
     this.config = new Config(this)
@@ -29,18 +34,23 @@ export class Api {
   }
 
   request() {
-    return tap(new Request(this.baseUrl, this.version), (request) => {
-      this.requestModifiers.forEach((modifier) => modifier(request))
+    const modifiers = [...this.requestModifiers]
+
+    this.apiKey && modifiers.push((request) => request.withQueryParameters({ api_key: this.apiKey }))
+    this.radioToken && modifiers.push((request) => request.withHeader('Authorization', `Bearer ${this.radioToken}`))
+
+    return tap(new Request(this.baseUrl, this.version, this.errorHandlers), (request) => {
+      modifiers.forEach((modifier) => modifier(request))
     })
   }
 
   setApiKey(apiKey) {
-    this.requestModifiers.push((request) => request.withQueryParameters({ api_key: apiKey }))
+    this.apiKey = apiKey
     return this
   }
 
   setRadioToken(token) {
-    this.requestModifiers.push((request) => request.withHeader('Authorization', `Bearer ${token}`))
+    this.radioToken = token
     return this
   }
 
@@ -52,9 +62,15 @@ export class Api {
     return tap(this.clone(), (api) => (api.baseUrlOverride = GLOBAL_API_URL))
   }
 
+  addErrorHandler(handler) {
+    this.errorHandlers.push(handler)
+    return this
+  }
+
   clone() {
     return tap(new Api(this.baseUrlOverride, this.version), (api) => {
       api.requestModifiers = this.requestModifiers
+      api.errorHandlers = this.errorHandlers
     })
   }
 }

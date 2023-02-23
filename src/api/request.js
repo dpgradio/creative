@@ -1,9 +1,10 @@
 import tap from '../utils/tap.js'
 
 export default class Request {
-  constructor(baseUrl, version) {
+  constructor(baseUrl, version, errorHandlers = []) {
     this.baseUrl = baseUrl
     this.version = version
+    this.errorHandlers = errorHandlers
     this.queryParameters = {}
     this.data = null
     this.headers = {}
@@ -75,6 +76,8 @@ export default class Request {
     })
 
     if (!response.ok) {
+      this.errorHandlers.forEach((handler) => handler({ response }))
+
       throw new Error(
         `API request (${method} ${url}) failed: [${response.status}] ${response.statusText}\n\n` +
           `RESPONSE\n--------\n${await response.text()}`
