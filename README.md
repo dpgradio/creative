@@ -14,14 +14,20 @@ The variables and fonts are no longer available as scss variables/imports.
 Example:
 
 ```css
-@import "q-creative/styles/colors/qmusic";
-@import "q-creative/styles/fonts/qmusic";
+@import "@dpgradio/creative/styles/colors/qmusic";
+@import "@dpgradio/creative/styles/fonts/qmusic";
 
 body, html {
   background-color: rgb(var(--q-teal));
   color: rgb(var(--q-grey) / 0.8);
   font-family: 'QMarkMyWords';
 }
+```
+
+Use the following to import the colors and fonts of all brands:
+  
+```css
+@import "@dpgradio/creative/styles/all";
 ```
 
 ## Config
@@ -195,7 +201,7 @@ hybrid.decodeRadioToken(radioToken)
 Example:
 
 ```js
-import { Shareable, ImageGeneratorProperties } from 'q-creative/share'
+import { Shareable, ImageGeneratorProperties } from '@dpgradio/creative/share'
 
 const shareable = new Shareable()
   .withTitle(`${this.name} is mijn seventies match!`)
