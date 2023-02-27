@@ -34,7 +34,12 @@ The configuration will also be used by other components of this package (e.g. pr
 ```js
 import { configuration } from '@dpgradio/creative'
 
-await configuration.retrieveConfig(appId, stationIdA, stationIdB, stationIdC)
+await configuration.retrieveConfigForDetectedStation(appId) // Default, by hostname or query parameter
+
+// Or, if you want to retrieve the config by hostnames only.
+await configuration.retrieveConfigByHostname(appId)
+// Or, if you want to retrieve the config for a specific station:
+await configuration.retrieveConfigByStation(appId, stationIdA, stationIdB, stationIdC)
 
 // By default the first station ID (stationIdA) is used as the current station of the configuration.
 // If you want to use a different station, you can do so by calling:

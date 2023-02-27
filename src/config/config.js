@@ -15,11 +15,38 @@ class Configuration {
     return this
   }
 
-  async retrieveConfig(appId, ...stationIds) {
+  async retrieveConfigForDetectedStation(appId) {
+    const parameters = new URLSearchParams(window.location.search)
+    if (parameters.has('stationId')) {
+      return this.retrieveConfigForStation(appId, parameters.get('stationId'))
+    }
+    return this.retrieveConfigByHostname(appId)
+  }
+
+  /**
+   * Retrieve the configuration for the given app and the current hostname.
+   */
+  async retrieveConfigByHostname(appId) {
+    this.appId = appId
+
+    // This is not the most robust way to get the hostname without subdomains, e.g. .co.uk domains will break.
+    // However, for the TLDs we use, this should be fine.
+    const hostname = window.location.hostname.split('.').splice(-2).join('.')
+    this.rawConfig = await api.global().config.app(appId, { domains: [hostname] })
+
+    this.stationId = Object.keys(this.rawConfig)[0]
+
+    return this
+  }
+
+  /**
+   * Retrieve the configuration for the given app and the given station(s).
+   */
+  async retrieveConfigForStation(appId, ...stationIds) {
     this.appId = appId
     this.stationId = stationIds[0]
 
-    this.rawConfig = await api.global().config.app(appId, stationIds)
+    this.rawConfig = await api.global().config.app(appId, { stationIds })
 
     return this
   }
