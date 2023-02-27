@@ -55,4 +55,8 @@ export default class Endpoint {
 
     return new PaginatedResponse(response, key)
   }
+
+  withoutNullValues(object) {
+    return Object.fromEntries(Object.entries(object).filter(([, value]) => value !== null))
+  }
 }
