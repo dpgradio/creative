@@ -15,7 +15,10 @@ class Configuration {
     return this
   }
 
-  async retrieveConfigForDetectedStation(appId) {
+  /**
+   * Retrieve the configuration for the current hostname or present query parameter and the given app (optional).
+   */
+  async retrieveConfigForDetectedStation(appId = null) {
     const parameters = new URLSearchParams(window.location.search)
     if (parameters.has('stationId')) {
       return this.retrieveConfigForStation(appId, parameters.get('stationId'))
@@ -24,15 +27,20 @@ class Configuration {
   }
 
   /**
-   * Retrieve the configuration for the given app and the current hostname.
+   * Retrieve the configuration for the current hostname and the given app (optional).
    */
-  async retrieveConfigByHostname(appId) {
+  async retrieveConfigByHostname(appId = null) {
     this.appId = appId
 
     // This is not the most robust way to get the hostname without subdomains, e.g. .co.uk domains will break.
     // However, for the TLDs we use, this should be fine.
     const hostname = window.location.hostname.split('.').splice(-2).join('.')
-    this.rawConfig = await api.global().config.app(appId, { domains: [hostname] })
+
+    if (appId) {
+      this.rawConfig = await api.global().config.app(appId, { domains: [hostname] })
+    } else {
+      this.rawConfig = await api.global().config.global({ domains: [hostname] })
+    }
 
     this.stationId = Object.keys(this.rawConfig)[0]
 
@@ -40,13 +48,24 @@ class Configuration {
   }
 
   /**
-   * Retrieve the configuration for the given app and the given station(s).
+   * Retrieve the configuration for the given station and the given app (optional).
    */
-  async retrieveConfigForStation(appId, ...stationIds) {
+  async retrieveConfigForStation(stationId, appId = null) {
+    return await this.retrieveConfigForStations([stationId], appId)
+  }
+
+  /**
+   * Retrieve the configuration for the given stations and the given app (optional).
+   */
+  async retrieveConfigForStations(stationIds, appId = null) {
     this.appId = appId
     this.stationId = stationIds[0]
 
-    this.rawConfig = await api.global().config.app(appId, { stationIds })
+    if (appId) {
+      this.rawConfig = await api.global().config.app(appId, { stationIds })
+    } else {
+      this.rawConfig = await api.global().config.global({ stationIds })
+    }
 
     return this
   }
@@ -58,10 +77,12 @@ class Configuration {
     if (!this.stationId) {
       throw new Error('No station set. First use [config.setStation] to set the station.')
     }
-    if (!this.appId) {
-      throw new Error('No app identifier set. First use [config.retrieveConfig] to retrieve the configuration.')
+    if (!this.rawConfig[this.stationId]) {
+      throw new Error(
+        `No configuration found for station [${this.stationId}]. Make sure there is a global config for this station.`
+      )
     }
-    if (!this.rawConfig[this.stationId]?.[this.appId]) {
+    if (this.appId && !this.rawConfig[this.stationId]?.[this.appId]) {
       throw new Error(
         `No configuration found for station [${this.stationId}] and app [${this.appId}]. Make sure the app is enabled for this station.`
       )
@@ -69,7 +90,7 @@ class Configuration {
 
     const stationConfig = {
       ...this.rawConfig[this.stationId],
-      app: this.rawConfig[this.stationId][this.appId],
+      ...(this.appId ? { app: this.rawConfig[this.stationId][this.appId] } : {}),
     }
 
     return property ? dotSyntaxAccess(stationConfig, property) : stationConfig

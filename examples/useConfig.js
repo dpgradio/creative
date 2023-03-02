@@ -1,13 +1,17 @@
 import configuration, { config } from '../src/config/config.js'
 
-const appId = 'greety'
+global.window = { location: { hostname: 'qmusic.nl', search: '' } }
+
+const appId = 'player'
 const stationIdA = 'qmusic_be'
 const stationIdB = 'qmusic_nl'
 
-await configuration.retrieveConfig(appId, stationIdA, stationIdB)
+await configuration.retrieveConfigForDetectedStation()
+console.log(config()) // global config
 
-console.log(config('app')) // greety config of qmusic_be
+await configuration.retrieveConfigForDetectedStation(appId)
+console.log(config('app')) // player config of qmusic_be
 
+await configuration.retrieveConfigForStations([stationIdA, stationIdB], appId)
 configuration.setStation(stationIdB)
-
-console.log(config('app')) // greety config of qmusic_nl
+console.log(config('app')) // player config of qmusic_nl
