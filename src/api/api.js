@@ -5,6 +5,7 @@ import Channels from './endpoints/Channels.js'
 import Config from './endpoints/Config.js'
 import Members from './endpoints/Members.js'
 import Ratings from './endpoints/Ratings.js'
+import ForbiddenWord from './endpoints/ForbiddenWord.js'
 
 const GLOBAL_API_URL = 'https://api.radio.dpgmedia.cloud'
 
@@ -27,6 +28,7 @@ export class Api {
     this.config = new Config(this)
     this.members = new Members(this)
     this.ratings = new Ratings(this)
+    this.forbiddenWord = new ForbiddenWord(this)
   }
 
   get baseUrl() {
