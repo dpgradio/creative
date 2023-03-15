@@ -57,6 +57,6 @@ export default class Endpoint {
   }
 
   withoutNullValues(object) {
-    return Object.fromEntries(Object.entries(object).filter(([, value]) => value !== null))
+    return Object.fromEntries(Object.entries(object).filter(([, value]) => value !== null && value !== undefined))
   }
 }
