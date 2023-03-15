@@ -21,7 +21,7 @@ class Configuration {
   async retrieveConfigForDetectedStation(appId = null) {
     const parameters = new URLSearchParams(window.location.search)
     if (parameters.has('stationId')) {
-      return this.retrieveConfigForStation(appId, parameters.get('stationId'))
+      return this.retrieveConfigForStation(parameters.get('stationId'), appId)
     }
     return this.retrieveConfigByHostname(appId)
   }
