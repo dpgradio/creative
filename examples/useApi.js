@@ -1,10 +1,9 @@
 import api from '../src/api/api.js'
 import configuration from '../src/config/config.js'
 
-const appId = 'greety'
 const stationId = 'qmusic_be'
 
-await configuration.retrieveConfig(appId, stationId)
+await configuration.retrieveConfigForStation(stationId)
 
 const channels = await api.channels.all()
 
