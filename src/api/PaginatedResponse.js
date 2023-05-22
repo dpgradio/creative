@@ -1,4 +1,4 @@
-import api from './api'
+import api from './api.js'
 
 export default class PaginatedResponse {
   constructor(response, dataKey = 'data') {
@@ -8,6 +8,9 @@ export default class PaginatedResponse {
   }
 
   async fetchNext() {
+    if (!this.pagination.next) {
+      return []
+    }
     const response = await api.onVersion(null).request().get(this.pagination.next)
     this.pagination.next = response.pagination.next
     this.data = [...this.data, ...response[this.dataKey]]
@@ -16,6 +19,9 @@ export default class PaginatedResponse {
   }
 
   async fetchPrevious() {
+    if (!this.pagination.previous) {
+      return []
+    }
     const response = await api.onVersion(null).request().get(this.pagination.previous)
     this.pagination.previous = response.pagination.previous
     this.data = [...response[this.dataKey], ...this.data]
