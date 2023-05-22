@@ -4,7 +4,7 @@ export const removeCountryPrefix = (mobile, localPhoneNumberPrefix = config('pho
   if (localPhoneNumberPrefix) {
     mobile = mobile.replace(`${localPhoneNumberPrefix}.`, '0')
   }
-  mobile = mobile.mobile.replace('.', '')
+  mobile = mobile.replace('.', '')
 
   return mobile
 }
