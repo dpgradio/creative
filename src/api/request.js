@@ -96,8 +96,7 @@ export default class Request {
 
     const endpointWithoutSlash = endpoint.replace(/^\/+/, '')
 
-    const urlParts =
-      endpoint.startsWith('http')
+    const urlParts = endpoint.startsWith('http')
       ? [endpoint]
       : [baseUrlWithProtocol, this.version, endpointWithoutSlash].filter(Boolean)
 
