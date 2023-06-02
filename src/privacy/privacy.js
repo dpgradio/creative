@@ -51,7 +51,7 @@ class Privacy {
 
     this.pushFunctional(() => {
       clearTimeout(timeout)
-      this.consent = new Consent(window._privacy.consentString, window._privacy.purposesProvider.purposes)
+      this.consent = new Consent(window._privacy.consentString, window._privacy.purposesProvider.enabledPurposes)
       this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
     })
   }
