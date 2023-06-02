@@ -1,6 +1,6 @@
-import hybrid from '../app/hybrid'
-import { config } from '../config/config'
-import loadScript from '../utils/loadScript'
+import hybrid from '../app/hybrid.js'
+import { config } from '../config/config.js'
+import loadScript from '../utils/loadScript.js'
 
 class DataLayer {
   constructor() {

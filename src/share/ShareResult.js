@@ -1,4 +1,4 @@
-import openLink from '../utils/openLink'
+import openLink from '../utils/openLink.js'
 
 export default class ShareResult {
   constructor(shareable, { url, image }) {

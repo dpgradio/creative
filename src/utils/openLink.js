@@ -1,4 +1,4 @@
-import hybrid from '../app/hybrid'
+import hybrid from '../app/hybrid.js'
 
 export default function openLink(url) {
   const chromeAgent = navigator.userAgent.indexOf('Chrome') > -1

@@ -1,5 +1,6 @@
+// eslint-disable-next-line import/no-unresolved -- TODO: Needs a rewrite to fetch
 import axios from 'axios'
-import ShareResult from './ShareResult'
+import ShareResult from './ShareResult.js'
 
 export default class Shareable {
   constructor() {

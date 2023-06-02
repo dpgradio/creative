@@ -1,6 +1,6 @@
 import { describe, expect, test, jest } from '@jest/globals'
-import hybrid from '../../app/hybrid'
-import openLink from '../../utils/openLink'
+import hybrid from '../../app/hybrid.js'
+import openLink from '../../utils/openLink.js'
 
 jest.mock('../../utils/hybrid.js', () => ({
   isNativeApp: jest.fn(),

@@ -1,4 +1,4 @@
-import SocketSubscription from './SocketSubscription'
+import SocketSubscription from './SocketSubscription.js'
 
 export default class SocketStation {
   constructor(connection, station) {

@@ -1,5 +1,5 @@
-import { config } from '../config/config'
-import loadScript from '../utils/loadScript'
+import { config } from '../config/config.js'
+import loadScript from '../utils/loadScript.js'
 
 class Privacy {
   constructor() {

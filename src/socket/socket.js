@@ -1,5 +1,5 @@
-import SocketConnection from './SocketConnection'
-import SocketStation from './SocketStation'
+import SocketConnection from './SocketConnection.js'
+import SocketStation from './SocketStation.js'
 
 // This is a JS rewrite of [https://github.com/medialaan/radio-sockets-server/blob/master/dist/q.coffee] with some minor additional functionality.
 class Socket {
