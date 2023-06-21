@@ -5,6 +5,7 @@ import loadScript from '../utils/loadScript.js'
 class DataLayer {
   constructor() {
     window.dataLayer = window.dataLayer || []
+    this.campaignDetails = {}
   }
 
   initialize(gtmId = 'GTM-TW99VZN') {
@@ -12,6 +13,13 @@ class DataLayer {
 
     this.pushGtmStart()
     this.pushUserWhenAuthenticated()
+  }
+
+  setCampaignDetails(details) {
+    this.campaignDetails = {
+      inApp: hybrid.isNativeApp,
+      ...details,
+    }
   }
 
   push(data) {
@@ -24,6 +32,20 @@ class DataLayer {
 
   pushEvent(event, data) {
     this.push({ event, ...data })
+  }
+
+  async pushCampaignAction(action, data) {
+    const user = await this._getUserInformationOnLoad()
+
+    this.push({
+      event: 'campaign_action',
+      campaign: {
+        ...this.campaignDetails,
+        action,
+        ...data,
+      },
+      ...user,
+    })
   }
 
   pushUserWhenAuthenticated() {
