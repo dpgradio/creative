@@ -37,7 +37,6 @@ class DataLayer {
   }
 
   async pushCampaignAction(action, data) {
-
     this.push({
       event: 'campaign_action',
       campaign: {
@@ -57,7 +56,6 @@ class DataLayer {
       }
     })
   }
-
 
   async pushVirtualPageView(brand = config('gtm_brand')) {
     await this._getUserInformationOnLoad()
