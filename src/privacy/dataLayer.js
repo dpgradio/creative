@@ -6,6 +6,7 @@ class DataLayer {
   constructor() {
     window.dataLayer = window.dataLayer || []
     this.campaignDetails = {}
+    this.userInformation = {}
   }
 
   initialize(gtmId = 'GTM-TW99VZN') {
@@ -13,6 +14,7 @@ class DataLayer {
 
     this.pushGtmStart()
     this.pushUserWhenAuthenticated()
+    this._getUserInformationOnLoad()
   }
 
   setCampaignDetails(details) {
@@ -35,7 +37,6 @@ class DataLayer {
   }
 
   async pushCampaignAction(action, data) {
-    const user = await this._getUserInformationOnLoad()
 
     this.push({
       event: 'campaign_action',
@@ -44,20 +45,22 @@ class DataLayer {
         action,
         ...data,
       },
-      ...user,
+      ...this.userInformation,
     })
   }
 
   pushUserWhenAuthenticated() {
     hybrid.on('authenticated', ({ radioToken }) => {
       if (radioToken) {
-        this.pushEvent('account_id', this._formatUserInformation(radioToken))
+        this.setUserInformation(radioToken)
+        this.pushEvent('account_id', this.userInformation)
       }
     })
   }
 
+
   async pushVirtualPageView(brand = config('gtm_brand')) {
-    const user = await this._getUserInformationOnLoad()
+    await this._getUserInformationOnLoad()
 
     this.pushEvent('VirtualPageView', {
       virtualPageURL: {
@@ -65,29 +68,25 @@ class DataLayer {
         platform: 'browser',
         brand,
       },
-      ...user,
+      user: this.userInformation,
     })
   }
 
   async _getUserInformationOnLoad() {
-    if (!hybrid.isNativeApp()) {
-      return {}
-    }
-    try {
-      const radioToken = await hybrid.appLoaded()
-      return this._formatUserInformation(radioToken)
-    } catch (error) {
-      console.error('User information could not be loaded:', error)
-      return {}
+    if (hybrid.isNativeApp()) {
+      try {
+        const radioToken = await hybrid.appLoaded()
+        this.setUserInformation(radioToken)
+      } catch (error) {
+        console.error('User information could not be loaded:', error)
+      }
     }
   }
 
-  _formatUserInformation(radioToken) {
-    return {
-      user: {
-        account_id: hybrid.decodeRadioToken(radioToken).uid,
-        loggedIn: true,
-      },
+  setUserInformation(radioToken) {
+    this.userInformation = {
+      account_id: hybrid.decodeRadioToken(radioToken).uid,
+      loggedIn: true,
     }
   }
 }
