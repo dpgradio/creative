@@ -1,4 +1,4 @@
-import SockJS from 'sockjs-client/dist/sockjs'
+import SockJS from 'sockjs-client/dist/sockjs.js'
 
 export default class SocketConnection {
   constructor(host, options) {
