@@ -5,7 +5,7 @@ const prefixes = {
   NL: '+31',
 }
 
-export const removeCountryPrefix = (phoneNumber, prefix = null) => {
+export const removePhoneNumberCountryPrefix = (phoneNumber, prefix = null) => {
   prefix ||= prefixes[config('country_code')]
 
   if (prefix) {
