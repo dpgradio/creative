@@ -30,12 +30,14 @@ export const setupAirbrake = async (
 
 export const gtmFilter = (notice) => {
   const rejectErrorsContaining = ['dpg_snowplow', '__tcfapi']
-  const rejectErrorsFromFilesContaining = ['mychannels']
+  const rejectErrorsFromFilesContaining = ['mychannels', 'gtm.js']
 
-  if (
-    rejectErrorsContaining.some((phrase) => notice.errors[0]?.message?.includes(phrase)) ||
-    rejectErrorsFromFilesContaining.some((phrase) => notice.errors[0]?.backtrace?.[0]?.file?.includes(phrase))
-  ) {
+  const rejectMessage = rejectErrorsContaining.some((phrase) => notice.errors[0]?.message?.includes(phrase))
+  const rejectFileInBacktrace = rejectErrorsFromFilesContaining.some((phrase) =>
+    notice.errors[0]?.backtrace.some((backtraceItem) => backtraceItem.file.includes(phrase))
+  )
+
+  if (rejectMessage || rejectFileInBacktrace) {
     return null
   }
 
