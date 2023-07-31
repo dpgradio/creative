@@ -13,6 +13,12 @@ describe('removing explicitly given prefixes', () => {
 
     expect(result).toBe('+33634542211')
   })
+
+  test('it does not fail when the given number is null', () => {
+    const result = removePhoneNumberCountryPrefix(null, '+31')
+
+    expect(result).toBeNull()
+  })
 })
 
 jest.mock('../../config/config.js', () => ({
