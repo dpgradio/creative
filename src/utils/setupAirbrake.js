@@ -37,5 +37,5 @@ export const rejectErrorsFromFilesContaining = (notice, phrases) =>
     : notice
 
 export const gtmFilter = (notice) =>
-  rejectErrorMessagesContaining(notice, ['dpg_snowplow', '__tcfapi']) ||
+  rejectErrorMessagesContaining(notice, ['dpg_snowplow', '__tcfapi']) &&
   rejectErrorsFromFilesContaining(notice, ['mychannels', 'gtm.js'])
