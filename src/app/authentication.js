@@ -86,6 +86,10 @@ class Authentication {
     })
   }
 
+  isLoggedIn() {
+    return !!this.radioToken
+  }
+
   onRadioTokenChange(listener) {
     this.radioTokenListeners.push(listener)
   }
