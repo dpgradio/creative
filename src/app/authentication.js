@@ -51,7 +51,7 @@ class Authentication {
       return
     }
 
-    if (hybrid.isNativeApp()) { // TODO: Fix this check in hybrid
+    if (hybrid.isNativeApp()) {
       hybrid.call('showAuthentication', { tier: 'light' })
       return
     }
