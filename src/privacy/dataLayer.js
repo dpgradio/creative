@@ -19,7 +19,7 @@ class DataLayer {
 
   setCampaignDetails(details) {
     this.campaignDetails = {
-      inApp: hybrid.isNativeApp,
+      inApp: hybrid.isNativeApp(),
       ...details,
     }
   }
