@@ -61,7 +61,7 @@ export default {
     })
   },
   isNativeApp() {
-    return appInfo.platform !== 'browser'
+    return detectApp(window.appVersion || navigator.userAgent).platform !== 'browser'
   },
   appInfo,
   isVersion,
