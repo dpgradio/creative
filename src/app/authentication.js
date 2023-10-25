@@ -19,10 +19,7 @@ class Authentication {
         this.setToken(radioToken)
       }
     })
-    hybrid.on('authenticated', ({ radioToken }) => {
-      this.setToken(radioToken)
-    })
-
+    hybrid.on('authenticated', ({ radioToken }) => this.setToken(radioToken))
     onLocalStorageChange(RADIO_TOKEN_LOCAL_STORAGE_KEY, (token) => this.setToken(token), true)
   }
 
@@ -48,15 +45,11 @@ class Authentication {
 
     if (import.meta?.env?.DEV) {
       this.setToken(prompt('[DEVELOPMENT] Please enter your radio token:'))
-      return
-    }
-
-    if (hybrid.isNativeApp()) {
+    } else if (hybrid.isNativeApp()) {
       hybrid.call('showAuthentication', { tier: 'light' })
-      return
+    } else {
+      window.location.href = '/login'
     }
-
-    window.location.href = '/login'
   }
 
   /**
@@ -75,12 +68,9 @@ class Authentication {
     }
 
     return new Promise((resolve, reject) => {
-      this.onRadioTokenChange(() => {
-        this.radioToken ? resolve() : reject('There is no authenticated user.')
-      })
-      this.askingForLoginListeners.push(() => {
-        this.radioToken ? resolve() : reject('There is no authenticated user.')
-      })
+      const onCompletion = () => (this.radioToken ? resolve() : reject('There is no authenticated user.'))
+      this.onRadioTokenChange(onCompletion)
+      this.askingForLoginListeners.push(onCompletion)
 
       this.askForLogin()
     })
