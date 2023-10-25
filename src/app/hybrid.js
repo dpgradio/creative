@@ -1,4 +1,4 @@
-import jwtDecode from 'jwt-decode'
+import decodeRadioToken from '../utils/decodeRadioToken.js'
 
 // Modern versions of the radio apps set up specific User-Agents:
 // Android User-Agent: Qmusic/7.6.1 (nl.qmusic.app; build:21726; Android 11; Sdk:30; Manufacturer:OnePlus; Model: IN2013) OkHttp/ 4.9.1
@@ -108,8 +108,11 @@ class Hybrid {
     return { platform: 'browser' }
   }
 
+  /**
+   * @deprecated Use the {@link decodeRadioToken} helper instead.
+   */
   decodeRadioToken(token) {
-    return jwtDecode(token)
+    return decodeRadioToken(token)
   }
 
   /**
