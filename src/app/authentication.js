@@ -4,6 +4,14 @@ import { onLocalStorageChange } from '../utils/onLocalStorageChange.js'
 
 export const RADIO_TOKEN_LOCAL_STORAGE_KEY = 'radio-auth-token'
 
+const inDevelopment = () => {
+  try {
+    return import.meta.env?.DEV
+  } catch (error) {
+    return false
+  }
+}
+
 class Authentication {
   constructor() {
     this.radioToken = null
@@ -19,7 +27,14 @@ class Authentication {
         this.setToken(radioToken)
       }
     })
-    hybrid.on('authenticated', ({ radioToken }) => this.setToken(radioToken))
+    hybrid.on('authenticated', ({ radioToken }) => {
+      this.setToken(radioToken)
+    })
+    // When a user logs in or out in another view of the app than the one we're currently in,
+    // we need to update the token once the user returns to this view.
+    hybrid.on('didAppear', ({ radioToken }) => {
+      this.setToken(radioToken ?? null)
+    })
     onLocalStorageChange(RADIO_TOKEN_LOCAL_STORAGE_KEY, (token) => this.setToken(token), true)
   }
 
@@ -43,7 +58,7 @@ class Authentication {
   askForLogin() {
     this.markAskingForLogin(true)
 
-    if (import.meta?.env?.DEV) {
+    if (inDevelopment()) {
       this.setToken(prompt('[DEVELOPMENT] Please enter your radio token:'))
     } else if (hybrid.isNativeApp()) {
       hybrid.call('showAuthentication', { tier: 'light' })
@@ -70,7 +85,11 @@ class Authentication {
     return new Promise((resolve, reject) => {
       const onCompletion = () => (this.radioToken ? resolve() : reject('There is no authenticated user.'))
       this.onRadioTokenChange(onCompletion)
-      this.askingForLoginListeners.push(onCompletion)
+      this.askingForLoginListeners.push((askingForLogin) => {
+        if (!askingForLogin) {
+          onCompletion()
+        }
+      })
 
       this.askForLogin()
     })
