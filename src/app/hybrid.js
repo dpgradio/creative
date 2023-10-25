@@ -3,10 +3,12 @@ import jwtDecode from 'jwt-decode'
 // Modern versions of the radio apps set up specific User-Agents:
 // Android User-Agent: Qmusic/7.6.1 (nl.qmusic.app; build:21726; Android 11; Sdk:30; Manufacturer:OnePlus; Model: IN2013) OkHttp/ 4.9.1
 // iOS User-Agent: Joe/265 (be.vmma.joe.app; build:1; iOS 14.8.1) Alamofire/265
-const androidRegexp =
+const ANDROID_APP_REGEX =
   /^(?<brand>.+)\/(?<storeVersion>[0-9.]+) \((?<buildName>.+); build:(?<buildVersion>\d+); (?<platform>Android) (?<osVersion>\d+); Sdk:(?<sdkVersion>\d+); Manufacturer:(?<manufacturer>.+); Model: (?<model>.+)\)/
-const iOSRegexp =
+const IOS_APP_REGEX =
   /^(?<brand>.+)\/(?<buildVersion>[0-9.]+) \((?<buildName>.+); build:(?<internalBuildVersion>\d+); (?<platform>iOS) (?<osVersion>\d+\.\d+\.\d+)\)/
+
+const OPEN_URL_MODES = ['seque', 'overlay', 'in-app-browser', 'external-browser']
 
 class Hybrid {
   constructor() {
@@ -90,8 +92,8 @@ class Hybrid {
   }
 
   detectApp(userAgent) {
-    for (const regexp of [androidRegexp, iOSRegexp]) {
-      const match = userAgent.match(regexp)
+    for (const regex of [ANDROID_APP_REGEX, IOS_APP_REGEX]) {
+      const match = userAgent.match(regex)
       if (match) {
         return match.groups
       }
@@ -115,13 +117,17 @@ class Hybrid {
    * This replaces the `navigateTo` method which is now deprecated.
    */
   openUrl(url, { mode = 'overlay' } = {}) {
+    if (!OPEN_URL_MODES.includes(mode)) {
+      throw new Error(`Invalid openUrl mode: "${mode}", supported modes are "${OPEN_URL_MODES.join('", "')}".`)
+    }
+
     this.call('openUrl', { url, mode })
   }
 
   /**
    * Opens a permalink of e.g. an article. The article will be shown in a regular `seque` style.
    *
-   * As of Ocotber 2023, not yet supported by the apps.
+   * As of October 2023, not yet supported by the apps.
    */
   openPermalink(permalink) {
     this.call('openPermalink', { permalink })
