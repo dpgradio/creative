@@ -201,6 +201,26 @@ const radioToken = await hybrid.appLoaded()
 hybrid.decodeRadioToken(radioToken)
 ```
 
+## Authentication
+
+```js
+import { authentication } from '@dpgradio/creative'
+
+// Call once, at least before requiring authentication somewhere
+authentication.initialize()
+
+// Main usage: prompts for login if needed and sets the token in the API client
+await authentication.require()
+
+
+// Potentially helpful methods (but not required for typical usage)
+authentication.isLoggedIn()
+authentication.onRadioTokenChange(callback)
+authentication.onLogin(callback)
+authentication.askForLogin() // Does the same as require(), but does not await the result
+authentication.radioToken
+```
+
 ## Sharing Generator
 
 Example:
