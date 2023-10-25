@@ -1,5 +1,8 @@
 import hybrid from '../app/hybrid.js'
 
+/**
+ * @deprecated Use {@link openExternalUrl} instead.
+ */
 export default function openLink(url) {
   const chromeAgent = navigator.userAgent.indexOf('Chrome') > -1
   const safariAgent = chromeAgent ? false : navigator.userAgent.indexOf('Safari') > -1

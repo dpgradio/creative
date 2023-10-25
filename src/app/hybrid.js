@@ -8,9 +8,14 @@ const ANDROID_APP_REGEX =
 const IOS_APP_REGEX =
   /^(?<brand>.+)\/(?<buildVersion>[0-9.]+) \((?<buildName>.+); build:(?<internalBuildVersion>\d+); (?<platform>iOS) (?<osVersion>\d+\.\d+\.\d+)\)/
 
-const OPEN_URL_MODES = ['seque', 'overlay', 'in-app-browser', 'external-browser']
-
 class Hybrid {
+  OPEN_URL_MODES = {
+    SEQUE: 'seque',
+    OVERLAY: 'overlay',
+    IN_APP_BROWSER: 'in-app-browser',
+    EXTERNAL_BROWSER: 'external-browser',
+  }
+
   constructor() {
     // Hook this on window so it can be required in multiple packs
     window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
@@ -117,8 +122,10 @@ class Hybrid {
    * This replaces the `navigateTo` method which is now deprecated.
    */
   openUrl(url, { mode = 'overlay' } = {}) {
-    if (!OPEN_URL_MODES.includes(mode)) {
-      throw new Error(`Invalid openUrl mode: "${mode}", supported modes are "${OPEN_URL_MODES.join('", "')}".`)
+    if (!Object.values(this.OPEN_URL_MODES).includes(mode)) {
+      throw new Error(
+        `Invalid openUrl mode: "${mode}", supported modes are "${Object.values(this.OPEN_URL_MODES).join('", "')}".`
+      )
     }
 
     this.call('openUrl', { url, mode })
