@@ -190,15 +190,48 @@ socket.join({ station: stationId, entity: 'plays', action: 'play', options: { ba
 
 ```js
 import { hyrid } from '@dpgradio/creative'
+```
 
-hybrid.appInfo
+### Information
+
+```
+hybrid.appInfo()
 hybrid.isNativeApp()
-hybrid.isVersion({ iOS, Android })
-hybrid.call(method, options)
+hybrid.isVersion({ iOS, Android }) // Check if the used app is of the given version or lower
+```
+
+### Listen for events
+
+```
 hybrid.on(method, callback, once)
 hybrid.one(method, callback)
+
 const radioToken = await hybrid.appLoaded()
-hybrid.decodeRadioToken(radioToken)
+```
+
+Events:
+```
+appLoad
+authenticated
+didAppear
+didHide
+```
+
+### Actions
+
+The following actions are available:
+
+```
+hybrid.openUrl(url, { mode })
+hybrid.openPermalink(permalink)
+hybrid.showAuthentication()
+hybrid.changeHeight(height, { animated })
+```
+
+Under the hood these actions are called using the following method, which can also be used directly in case you need to call an action that is not available as a method:
+
+```
+hybrid.call(method, options)
 ```
 
 ## Sharing Generator
