@@ -102,6 +102,48 @@ class Hybrid {
   decodeRadioToken(token) {
     return jwtDecode(token)
   }
+
+  /**
+   * Opens an external URL.
+   *
+   * Supported modes:
+   * - `seque`: Opens the URL in a windows that slides from the right, pushing onto the current page.
+   * - `overlay`: Opens the URL in a full-screen modal that slides up from the bottom.
+   * - `in-app-browser`: Opens the URL in an in-app browser with navigation controls. No hybrid functionality supported.
+   * - `external-browser`: Opens the URL in the default browser. No hybrid functionality supported.
+   *
+   * This replaces the `navigateTo` method which is now deprecated.
+   */
+  openUrl(url, { mode = 'overlay' } = {}) {
+    this.call('openUrl', { url, mode })
+  }
+
+  /**
+   * Opens a permalink of e.g. an article. The article will be shown in a regular `seque` style.
+   *
+   * As of Ocotber 2023, not yet supported by the apps.
+   */
+  openPermalink(permalink) {
+    this.call('openPermalink', { permalink })
+  }
+
+  /**
+   * Shows an authentication dialog.
+   *
+   * On Android this is shown regardless of the login status, on iOS it's only shown when the user is not logged in.
+   */
+  showAuthentication() {
+    this.call('showAuthentication', { tier: 'light' })
+  }
+
+  /**
+   * Changes the height of the webview.
+   *
+   * Animation is only supported on Android.
+   */
+  changeHeight(height, { animated = false } = {}) {
+    this.call('changeHeight', { height, animated })
+  }
 }
 
 export default new Hybrid()
