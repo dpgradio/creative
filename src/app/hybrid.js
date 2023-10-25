@@ -20,20 +20,22 @@ class Hybrid {
     // Hook this on window so it can be required in multiple packs
     window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
 
-    this.appInfo = this.detectApp(window.appVersion || navigator.userAgent)
-
     this._cachedRadioTokenOnLoad = undefined
     this.on('appLoad', (context) => {
       this._cachedRadioTokenOnLoad = context?.radioToken ?? null
     })
   }
 
+  appInfo() {
+    return this.detectApp(window.appVersion || navigator.userAgent)
+  }
+
   isNativeApp() {
-    return this.appInfo.platform !== 'browser'
+    return this.appInfo().platform !== 'browser'
   }
 
   isVersion({ android, ios }) {
-    const { platform, buildName, buildVersion } = this.appInfo
+    const { platform, buildName, buildVersion } = this.appInfo()
 
     return (
       (platform === 'Android' && android[buildName] && android[buildName] <= parseInt(buildVersion, 10)) ||

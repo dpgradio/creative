@@ -6,6 +6,10 @@ const prefixes = {
 }
 
 export const removePhoneNumberCountryPrefix = (phoneNumber, prefix = null) => {
+  if (!phoneNumber) {
+    return phoneNumber
+  }
+
   prefix ||= prefixes[config('country_code')]
 
   if (prefix) {

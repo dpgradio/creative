@@ -1,21 +1,7 @@
 :root {
-  --joe-lime: 206 220 0;
-
-  --joe-purple: 150 4 99;
-  --joe-purple-dark: 92 29 84;
-  --joe-purple-light: 220 50 130;
-
-  --joe-green: 3 112 108;
-  --joe-green-dark: 9 76 89;
-  --joe-green-light: 20 160 140;
-
-  --joe-red: 186 22 52;
-  --joe-red-dark: 154 23 54;
-  --joe-red-light: 240 40 70;
-
-  --joe-blue: 7 77 163;
-  --joe-blue-dark: 44 45 119;
-  --joe-blue-light: 0 130 220;
+  --joe-primary: 30 100 200;
+  --joe-secondary: 20 50 140;
+  --joe-accent: 220 60 150;
 
   --joe-text: 78 78 78;
 }

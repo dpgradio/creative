@@ -11,7 +11,7 @@ import Requests from './endpoints/Requests.js'
 import Lists from './endpoints/Lists.js'
 import Programs from './endpoints/Programs.js'
 
-const GLOBAL_API_URL = 'https://api.radio.dpgmedia.cloud'
+const GLOBAL_API_URL = 'https://api.radio.dpgmedia.net'
 
 export const DEFAULT_VERSION = '2.9'
 
