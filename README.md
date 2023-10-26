@@ -191,7 +191,7 @@ socket.join({ station: stationId, entity: 'plays', action: 'play', options: { ba
 ```js
 import { hyrid } from '@dpgradio/creative'
 
-hybrid.appInfo
+hybrid.appInfo()
 hybrid.isNativeApp()
 hybrid.isVersion({ iOS, Android })
 hybrid.call(method, options)
