@@ -188,51 +188,105 @@ socket.join({ station: stationId, entity: 'plays', action: 'play', options: { ba
 
 ## Hybrid
 
+The app interaction layer for use in webviews in the app.
+Interacts trough a "JavaScript bridge".
+On iOS it uses [message handlers](https://developer.apple.com/documentation/webkit/wkscriptmessagehandler) and on Android it uses [JavascriptInterface](https://developer.android.com/guide/webapps/webview#BindingJavaScript).
+
 ```js
 import { hyrid } from '@dpgradio/creative'
 ```
 
 ### Information
 
-```
-hybrid.appInfo()
-hybrid.isNativeApp()
-hybrid.isVersion({ iOS, Android }) // Check if the used app is of the given version or lower
-```
+#### `hybrid.appInfo()`
+
+Gives information about the brand, platform, version etc. of the app.
+
+#### `hybrid.isNativeApp()`
+
+Returns `true` if the client is a native app.
+
+#### `hybrid.isVersion({ iOS, Android })`
+
+Returns `true` if the client is a native app and the version is equal to or lower than the given version for the given platform.
 
 ### Listen for events
 
-```
-hybrid.on(method, callback, once)
-hybrid.one(method, callback)
+The app will emit events that can be listened to.
+For certain events, such as `appLoad` it is important to start listening as soon as possible.
+Because this is sometimes difficult to do, the `appLoaded` method can be used to wait for the `appLoad` event.
+And if the event has already been emitted before the method is called, it will return immediately.
 
+The following events are available:
+* `appLoad`: The app has loaded. If the user is logged in, it provides their radio token.
+* `authenticated`: The user has authenticated. It provides the user's radio token.
+* `didAppear`: The webview is visible. If the user is logged in, it provides their radio token.  ⚠️ Test when exactly this event is emitted.
+* `didHide`: The webview is hidden. ⚠️ Test when exactly this event is emitted.
+
+#### `hybrid.on(event, callback, once)`
+
+Listen for an event. If `once` is `true`, the callback will only be called once.
+
+#### `hybrid.one(event, callback)`
+
+Listen for an event. The callback will only be called once.
+
+#### `hybrid.appLoaded()`
+
+This method returns a promise that resolves when the `appLoad` event is emitted.
+If the event has already been emitted before the method is called, it will return immediately.
+
+If the user is logged in, the user's radio token is returned.
+
+Example usage:
+```
 const radioToken = await hybrid.appLoaded()
-```
-
-Events:
-```
-appLoad
-authenticated
-didAppear
-didHide
+await api.members.me()
 ```
 
 ### Actions
 
-The following actions are available:
-
-```
-hybrid.openUrl(url, { mode })
-hybrid.openPermalink(permalink)
-hybrid.showAuthentication()
-hybrid.changeHeight(height, { animated })
-```
+To initiate actions on the app side, we provide the methods below.
 
 Under the hood these actions are called using the following method, which can also be used directly in case you need to call an action that is not available as a method:
 
 ```
 hybrid.call(method, options)
 ```
+
+You may encounter the method `"navigateTo"` in older code.
+This method is now deprecated and replaced by `hybrid.openUrl` and `hybrid.openPermalink`.
+
+#### `hybrid.openUrl(url, { mode })`
+
+Opens an external URL in a mode of choice.
+This is not meant to open URLs on our own domains, e.g. `https://qmusic.be/this-is-a-cool-article`.
+For that, use `hybrid.openPermalink`.
+
+Supported modes:
+* `seque`: Opens the URL in a windows that slides from the right, pushing onto the current page.
+* `overlay`: Opens the URL in a full-screen modal that slides up from the bottom.
+* `in-app-browser`: Opens the URL in an in-app browser with navigation controls. No hybrid functionality supported.
+* `external-browser`: Opens the URL in the default browser. No hybrid functionality supported.
+
+#### `hybrid.openPermalink(permalink)`
+
+Opens a permalink of e.g. an article.
+The article will be shown in a regular `seque` style.
+
+⚠️ As of October 2023, not yet supported by the apps.
+
+#### `hybrid.showAuthentication()`
+
+Shows an authentication dialog.
+
+On Android this is shown regardless of the login status, on iOS it's only shown when the user is not logged in.
+
+#### `hybrid.changeHeight(height, { animated })`
+
+Changes the height of the webview.
+
+Animation is only supported on Android.
 
 ## Sharing Generator
 
