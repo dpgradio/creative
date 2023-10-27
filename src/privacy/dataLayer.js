@@ -1,5 +1,6 @@
 import hybrid from '../app/hybrid.js'
 import { config } from '../config/config.js'
+import decodeRadioToken from '../utils/decodeRadioToken.js'
 import loadScript from '../utils/loadScript.js'
 
 class DataLayer {
@@ -83,7 +84,7 @@ class DataLayer {
 
   setUserInformation(radioToken) {
     this.userInformation = {
-      account_id: hybrid.decodeRadioToken(radioToken).uid,
+      account_id: decodeRadioToken(radioToken).uid,
       loggedIn: true,
     }
   }

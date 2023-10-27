@@ -13,6 +13,7 @@ export { default as authentication } from './app/authentication.js'
 
 export { default as loadScript } from './utils/loadScript.js'
 export { default as openLink } from './utils/openLink.js'
+export { default as openExternalUrl } from './utils/openExternalUrl.js'
 export { default as tap } from './utils/tap.js'
 export { cdnImageUrl, cdnUrl } from './utils/cdnUrl.js'
 export { removePhoneNumberCountryPrefix } from './utils/phoneNumber.js'
