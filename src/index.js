@@ -9,6 +9,8 @@ export { default as configuration, config } from './config/config.js'
 
 export { default as api } from './api/api.js'
 
+export { default as authentication } from './app/authentication.js'
+
 export { default as loadScript } from './utils/loadScript.js'
 export { default as openLink } from './utils/openLink.js'
 export { default as openExternalUrl } from './utils/openExternalUrl.js'
