@@ -1,5 +1,17 @@
 # @dpgradio/creative
 
+Table of contents:
+* [Installation](#installation)
+* [CSS: Fonts and Colors](#css-fonts-and-colors)
+* [Config](#config)
+* [Privacy and Tracking](#privacy-and-tracking)
+* [API](#api)
+* [Socket](#socket)
+* [Hybrid](#hybrid)
+* [Authentication](#authentication)
+* [Sharing Generator](#sharing-generator)
+* [Utilities](#utilities)
+
 ## Installation
 
 ```bash
