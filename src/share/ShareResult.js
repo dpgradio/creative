@@ -1,4 +1,4 @@
-import openLink from '../utils/openLink.js'
+import openExternalUrl from '../utils/openExternalUrl.js'
 
 export default class ShareResult {
   constructor(shareable, { url, image }) {
@@ -20,14 +20,14 @@ export default class ShareResult {
   }
 
   openFacebookUrl() {
-    openLink(this.facebookUrl())
+    openExternalUrl(this.facebookUrl())
   }
 
   openWhatsappUrl() {
-    openLink(this.whatsappUrl())
+    openExternalUrl(this.whatsappUrl())
   }
 
   openInstagramUrl() {
-    openLink(this.instagramUrl())
+    openExternalUrl(this.instagramUrl())
   }
 }
