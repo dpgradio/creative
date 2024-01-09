@@ -1,4 +1,4 @@
-import privacy from '../privacy/privacy'
+import privacy from '../privacy/privacy.js'
 
 class Mixpanel {
   constructor() {

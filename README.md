@@ -152,6 +152,18 @@ dataLayer.pushVirtualPageView(brand) // brand is not required when the config is
 dataLayer.pushEvent(event, data)
 ```
 
+With Mixpanel
+```js
+import { mixpanel } from '@dpgradio/creative'
+import Mixpanel from 'mixpanel-browser'
+
+mixpanel.initialize(Mixpanel, {
+    mixpanelId: 'MIXPANEL ID',
+})
+
+mixpanel.trackEvent(event, data)
+```
+
 ## API
 
 With an initialized [configuration](#config):
