@@ -7,11 +7,11 @@ class Mixpanel {
     this.mixpanel = null
   }
 
-  initialize(Mixpanel, { mixpanelId, track_pageview = true }) {
+  initialize(Mixpanel, { mixpanelId, trackPageview = true }) {
     this.mixpanel = Mixpanel
     privacy.push('analytics', () => {
       this.mixpanel.init(mixpanelId, {
-        track_pageview,
+        track_pageview: trackPageview,
         persistence: 'localStorage',
         api_host: 'https://api-eu.mixpanel.com',
       })
@@ -20,6 +20,8 @@ class Mixpanel {
         const { eventName, properties } = this.trackBacklog.shift()
         this.mixpanel.track(eventName, properties)
       }
+
+      this.trackingEvents = true
     })
   }
 
