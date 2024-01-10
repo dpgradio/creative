@@ -25,7 +25,7 @@ class Mixpanel {
     })
   }
 
-  trackEvent(eventName, properties) {
+  pushEvent(eventName, properties) {
     if (this.trackingEvents) {
       this.mixpanel.track(eventName, properties)
     } else {
