@@ -18,10 +18,10 @@ class Configuration {
   /**
    * Retrieve the configuration for the current hostname or present query parameter and the given app (optional).
    */
-  async retrieveConfigForDetectedStation(appId = null) {
+  async retrieveConfigForDetectedStation(appId = null, { parameterName = 'stationId' } = {}) {
     const parameters = new URLSearchParams(window.location.search)
-    if (parameters.has('stationId')) {
-      return this.retrieveConfigForStation(parameters.get('stationId'), appId)
+    if (parameters.has(parameterName)) {
+      return this.retrieveConfigForStation(parameters.get(parameterName), appId)
     }
     return this.retrieveConfigByHostname(appId)
   }
