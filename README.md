@@ -61,11 +61,11 @@ await configuration.retrieveConfigForDetectedStation(appId) // Default, by hostn
 // Or, if you want to retrieve the config by hostnames only.
 await configuration.retrieveConfigByHostname(appId)
 // Or, if you want to retrieve the config for a specific station:
-await configuration.retrieveConfigByStation(stationId, appId)
+await configuration.retrieveConfigForStation(stationId, appId)
 
 // By default the first station ID (stationIdA) is used as the current station of the configuration.
 // If you want to use a different station, you can do so by calling setStation:
-await configuration.retrieveConfigByStations([stationIdA, stationIdB, stationIdC], appId)
+await configuration.retrieveConfigForStations([stationIdA, stationIdB, stationIdC], appId)
 configuration.setStation(stationIdC)
 ```
 You can change the station later on at any time without having to retrieve the config again.
