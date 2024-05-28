@@ -43,12 +43,19 @@ export class Api {
     return this.baseUrlOverride || config('api_base_url')
   }
 
-  request() {
+  request(config = { passAuth: false }) {
     const modifiers = [...this.requestModifiers]
 
     this.apiKey && modifiers.push((request) => request.withQueryParameters({ api_key: this.apiKey }))
-    this.radioToken && modifiers.push((request) => request.withHeader('Authorization', `Bearer ${this.radioToken}`))
-
+    
+    if (config.passAuth) {
+      if (this.radioToken) {
+        modifiers.push((request) => request.withHeader('Authorization', `Bearer ${this.radioToken}`))
+      } else {
+        throw new Error("No currentUserToken available")
+      }
+    }
+    
     return tap(new Request(this.baseUrl, this.version, this.errorHandlers), (request) => {
       modifiers.forEach((modifier) => modifier(request))
     })
