@@ -47,6 +47,15 @@ export class Api {
     const modifiers = [...this.requestModifiers]
 
     this.apiKey && modifiers.push((request) => request.withQueryParameters({ api_key: this.apiKey }))
+    
+    if (config.passAuth) {
+      if (this.radioToken) {
+        modifiers.push((request) => request.withHeader('Authorization', `Bearer ${this.radioToken}`))
+      } else {
+        throw new Error("No currentUserToken available")
+      }
+    }
+    
 
     if (config.passAuth) {
       if (this.radioToken) {
