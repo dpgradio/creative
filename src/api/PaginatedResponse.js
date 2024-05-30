@@ -3,14 +3,14 @@ export default class PaginatedResponse {
     this.pagination = response.pagination
     this.data = response[dataKey]
     this.dataKey = dataKey
-    this.api = api
+    this.api = api.onVersion(null)
   }
 
   async fetchNext() {
     if (!this.pagination.next) {
       return []
     }
-    const response = await this.api.onVersion(null).request().get(this.pagination.next)
+    const response = await this.api.request().get(this.pagination.next)
     this.pagination.next = response.pagination.next
     this.data = [...this.data, ...response[this.dataKey]]
 
@@ -21,7 +21,7 @@ export default class PaginatedResponse {
     if (!this.pagination.previous) {
       return []
     }
-    const response = await this.api.onVersion(null).request().get(this.pagination.previous)
+    const response = await this.api.request().get(this.pagination.previous)
     this.pagination.previous = response.pagination.previous
     this.data = [...response[this.dataKey], ...this.data]
 
