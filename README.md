@@ -202,8 +202,8 @@ import { Api } from '@dpgradio/creative'
 const api = new Api('https://api.qmusic.be')
 
 api.setRadioToken(token)
-api.request({ passAuth: true }).post(`/forbidden_words/${id}/detections`) // for authenticated endpoints
-api.request().get(`/forbidden_words/${id}`) // for non-authenticate endpoints
+api.withAuth().request().post('/some-non-predefined-endpoint') // for authenticated endpoints
+api.request().get('/some-non-predefined-endpoint') // for non-authenticate endpoints
 
 ```
 

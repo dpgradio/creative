@@ -24,8 +24,8 @@ export default class Endpoint {
    * @param {requestCallback} callback
    * @returns {object}
    */
-  async requestData(callback, key = 'data', config = { passAuth: false }) {
-    const response = await callback(this.api.request(config))
+  async requestData(callback, key = 'data') {
+    const response = await callback(this.api.request())
 
     if (response === null) {
       throw new Error(`Endpoint returned invalid JSON.`)
@@ -40,8 +40,8 @@ export default class Endpoint {
    * @param {requestCallback} callback
    * @returns {PaginatedResponse}
    */
-  async requestPaginatedData(callback, key = 'data', config = { passAuth: false }) {
-    const response = await callback(this.api.request(config))
+  async requestPaginatedData(callback, key = 'data', config = { withAuth: false }) {
+    const response = await callback(config.withAuth ? this.api.withAuth().request() : this.api.request())
 
     if (response === null) {
       throw new Error(`Endpoint returned invalid JSON.`)

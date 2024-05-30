@@ -2,7 +2,7 @@ import Endpoint from './Endpoint.js'
 
 export default class Requests extends Endpoint {
   async requestTrack(eventSlug, request) {
-    return await this.api.request({ passAuth: true }).post(`/requests/${eventSlug}`, request)
+    return await this.api.withAuth().request().post(`/requests/${eventSlug}`, request)
   }
 
   async requestsForTrack(eventSlug, selectorCode) {
