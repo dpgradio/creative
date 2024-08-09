@@ -22,7 +22,7 @@ class Privacy {
     privacyManagerId = config('privacy_manager_id'),
     websiteUrl = config('website_url'),
     cmpCname = config('cmp_cname'),
-    { nonce = undefined }
+    { nonce = undefined } = {}
   ) {
     window.cmpProperties = {
       privacyManagerId,

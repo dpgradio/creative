@@ -20,7 +20,7 @@ class DataLayer {
     if (typeof parameters === 'string') {
       parameters = { gtmId: parameters }
     }
-    const { gtmId = 'GTM-TW99VZN', nonce } = parameters
+    const { gtmId = 'GTM-TW99VZN', nonce } = parameters || {}
 
     loadScript(`https://www.googletagmanager.com/gtm.js?id=${gtmId}`, { nonce })
 
