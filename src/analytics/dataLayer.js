@@ -10,8 +10,19 @@ class DataLayer {
     this.userInformation = {}
   }
 
-  initialize(gtmId = 'GTM-TW99VZN') {
-    loadScript(`https://www.googletagmanager.com/gtm.js?id=${gtmId}`)
+  /**
+   * @param {Object} parameters   The parameters object.
+   * @param {string} [parameters.gtmId]   The GTM ID - Defaults to our default GTM tag
+   * @param {string} [parameters.nonce]   The nonce value for the script tag (Used for CSP).
+   */
+  initialize(parameters) {
+    // Backwards compatability
+    if (typeof parameters === 'string') {
+      parameters = { gtmId: parameters }
+    }
+    const { gtmId = 'GTM-TW99VZN', nonce } = parameters
+
+    loadScript(`https://www.googletagmanager.com/gtm.js?id=${gtmId}`, { nonce })
 
     this.pushGtmStart()
     this.pushUserWhenAuthenticated()

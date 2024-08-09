@@ -366,6 +366,25 @@ const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-
 (await shareable.generateUsingImage(image)).openWhatsappUrl()
 ```
 
+## CSP
+
+Sometimes it's necessary to set strict Content Security Policy (CSP) headers. When that's the case a nicety of some of the methods in this package is that they support a random nonce to be passed in so extra sources (GTM, Privacy gate) don't need to be explicitly whitelisted (since they might be unknown at the time of development). Our datalayer and privacy gate initializers have an optional `nonce` parameter that can be passed in.
+
+```js
+import { privacy, dataLayer } from '@dpgradio/creative'
+
+privacy.initialize(privacyManagerId, websiteUrl, cmpCname, { nonce: "abc1234" })
+dataLayer.initialize({ nonce: "abc1234" })
+```
+
+Which then allows you to whitelist that nonce in your CSP header
+
+```
+Content-Security-Policy: script-src 'nonce-abc1234'
+```
+
+Take note that this nonce need to be random on every request, as else this security is useless.
+
 ## Utilities
 
 This package provides a number of utility functions.
