@@ -19,7 +19,16 @@ class DataLayer {
     // Backwards compatability
     if (typeof parameters === 'string') {
       parameters = { gtmId: parameters }
+
+      // Deprecation warning in development
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(
+          '@dpgmedia/creative',
+          'DEPRECATION WARNING: new Datalayer(gtmId) is deprecated, please use new Datalayer({ gtmId }) instead.'
+        )
+      }
     }
+
     const { gtmId = 'GTM-TW99VZN', nonce } = parameters || {}
 
     loadScript(`https://www.googletagmanager.com/gtm.js?id=${gtmId}`, { nonce })
