@@ -15,11 +15,14 @@ class Privacy {
    * @param {string}  privacyManagerId   e.g. '148844'
    * @param {string}  websiteUrl         e.g. 'https://qmusic.nl'
    * @param {string}  cmpCname           e.g. 'https://cmp.qmusic.nl'
+   * @param {Object}  options            Additional options.
+   * @param {string}  [options.nonce]    The nonce value for the script tag (Used for CSP).
    */
   initialize(
     privacyManagerId = config('privacy_manager_id'),
     websiteUrl = config('website_url'),
-    cmpCname = config('cmp_cname')
+    cmpCname = config('cmp_cname'),
+    { nonce = undefined } = {}
   ) {
     window.cmpProperties = {
       privacyManagerId,
@@ -28,7 +31,7 @@ class Privacy {
       language: 'nl',
     }
 
-    loadScript('https://myprivacy-static.dpgmedia.net/consent.js')
+    loadScript('https://myprivacy-static.dpgmedia.net/consent.js', { nonce })
 
     this.requestConsentInformation()
   }

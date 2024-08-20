@@ -1,12 +1,15 @@
 // From: https://github.com/medialaan/radio-radioplayer-frontend/blob/develop/src/general/utils/loadScript.js
 // TODO: Refactor
 
-export default function loadScript(url, { timeout = undefined } = {}) {
+export default function loadScript(url, { timeout = undefined, nonce = undefined } = {}) {
   return new Promise((resolve, reject) => {
     let script = document.createElement('script')
     const firstScript = document.getElementsByTagName('script')[0]
     script.async = true
     script.defer = true
+    if (nonce) {
+      script.nonce = nonce
+    }
 
     const loadScriptTimeout = timeout ? setTimeout(() => reject(`Loading script [${url}] blocked.`), timeout) : null
 

@@ -10,8 +10,28 @@ class DataLayer {
     this.userInformation = {}
   }
 
-  initialize(gtmId = 'GTM-TW99VZN') {
-    loadScript(`https://www.googletagmanager.com/gtm.js?id=${gtmId}`)
+  /**
+   * @param {Object} parameters   The parameters object.
+   * @param {string} [parameters.gtmId]   The GTM ID - Defaults to our default GTM tag
+   * @param {string} [parameters.nonce]   The nonce value for the script tag (Used for CSP).
+   */
+  initialize(parameters) {
+    // Backwards compatability
+    if (typeof parameters === 'string') {
+      parameters = { gtmId: parameters }
+
+      // Deprecation warning in development
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(
+          '@dpgmedia/creative',
+          'DEPRECATION WARNING: new Datalayer(gtmId) is deprecated, please use new Datalayer({ gtmId }) instead.'
+        )
+      }
+    }
+
+    const { gtmId = 'GTM-TW99VZN', nonce } = parameters || {}
+
+    loadScript(`https://www.googletagmanager.com/gtm.js?id=${gtmId}`, { nonce })
 
     this.pushGtmStart()
     this.pushUserWhenAuthenticated()
