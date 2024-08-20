@@ -383,7 +383,7 @@ Which then allows you to whitelist that nonce in your CSP header
 Content-Security-Policy: script-src 'nonce-abc1234'
 ```
 
-Take note that this nonce need to be random on every request, as else this security is useless.
+**!! Take note that this nonce need to be random on every request, as else this security is useless !!**
 
 ## Utilities
 
