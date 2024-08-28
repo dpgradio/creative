@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTM and Privacy Test with Nonce</title>
+
+      <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'nonce-abcd1234' *.radio.dpgmedia.net;
+        script-src 'self' 'nonce-abcd1234' *.radio.dpgmedia.net;
+        style-src 'self' 'unsafe-inline';
+      ">
+</head>
+<body>
+    <h1>GTM and Privacy Test with Nonce</h1>
+
+    <script nonce="abcd1234" type="module" src="gtm.js"></script>
+</body>
+</html>
