@@ -52,9 +52,9 @@ class Privacy {
       this.consentSubscribers.forEach((subscriber) => subscriber(null))
     }, timeoutTime)
 
-    this.pushOnDpgConsentString((dpgConsentString) => {
+    this.pushOnDpgConsentString((consentData) => {
       clearTimeout(timeout)
-      this.consent = new Consent(dpgConsentString)
+      this.consent = new Consent(consentData)
       this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
     })
   }
@@ -82,15 +82,15 @@ class Privacy {
     window._privacy.push([type, callback])
   }
 
-  pushOnDpgConsentString(callback) {
-    this.push('onDpgConsentString', callback)
+  pushConsentGiven(callback) {
+    this.push('consentGiven', callback)
   }
 }
 
 class Consent {
-  constructor(consentString) {
-    this.consentString = consentString
-    this.purposes = new Set(consentString.split('|'))
+  constructor(consentData) {
+    this.consentString = consentData.tcString
+    this.purposes = new Set(consentData.dpgConsentString.split('|'))
   }
 
   allowsTargetedAdvertising() {
