@@ -52,9 +52,9 @@ class Privacy {
       this.consentSubscribers.forEach((subscriber) => subscriber(null))
     }, timeoutTime)
 
-    this.pushFunctional(() => {
+    this.pushOnDpgConsentString((dpgConsentString) => {
       clearTimeout(timeout)
-      this.consent = new Consent(window._privacy.consentString, window._privacy.purposesProvider.enabledPurposes)
+      this.consent = new Consent(dpgConsentString)
       this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
     })
   }
@@ -82,21 +82,19 @@ class Privacy {
     window._privacy.push([type, callback])
   }
 
-  pushFunctional(callback) {
-    this.push('functional', callback)
+  pushOnDpgConsentString(callback) {
+    this.push('onDpgConsentString', callback)
   }
 }
 
-const targetedAdvertisingPurposes = [3, 4]
-
 class Consent {
-  constructor(consentString, purposes) {
+  constructor(consentString) {
     this.consentString = consentString
-    this.purposes = purposes
+    this.purposes = new Set(consentString.split('|'))
   }
 
   allowsTargetedAdvertising() {
-    return targetedAdvertisingPurposes.every((purpose) => this.purposes.has(purpose.toString()))
+    return this.purposes.has('targeted_advertising')
   }
 }
 
