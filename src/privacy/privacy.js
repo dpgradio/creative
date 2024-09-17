@@ -56,12 +56,12 @@ class Privacy {
       const iabPurposePromises = []
 
       // We have 10 IAB purposes, so we create 10 promises that resolve with the purpose number or null if the purpose is not given.
-      for (let i = 0; i < 10; i++) {
+      for (let i = 1; i < 11; i++) {
         iabPurposePromises.push(
           new Promise((resolve) => {
             this.push(
-              (i + 1).toString(),
-              () => resolve(i + 1), // Resolve with the purpose number
+              i,
+              () => resolve(i), // Resolve with the purpose number
               () => resolve(null) // Resolve without a value, indicating that the purpose is not given
             )
           })
