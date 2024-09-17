@@ -52,10 +52,35 @@ class Privacy {
       this.consentSubscribers.forEach((subscriber) => subscriber(null))
     }, timeoutTime)
 
-    this.pushOnDpgConsentString((consentData) => {
-      clearTimeout(timeout)
-      this.consent = new Consent(consentData)
-      this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
+    this.pushConsentGiven((consentData) => {
+      const iabPurposePromises = []
+
+      // We have 10 IAB purposes, so we create 10 promises that resolve with the purpose number or null if the purpose is not given.
+      for (let i = 0; i < 10; i++) {
+        iabPurposePromises.push(
+          new Promise((resolve) => {
+            this.push(
+              (i + 1).toString(),
+              () => resolve(i + 1), // Resolve with the purpose number
+              () => resolve(null) // Resolve without a value, indicating that the purpose is not given
+            )
+          })
+        )
+      }
+
+      Promise.all(iabPurposePromises).then((purposeConsents) => {
+        const updatedConsentData = purposeConsents.reduce((acc, curr) => {
+          if (curr) {
+            acc.dpgConsentString += `|${curr}`
+          }
+          return acc
+        }, consentData)
+
+        this.consent = new Consent(updatedConsentData)
+        this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
+
+        clearTimeout(timeout)
+      })
     })
   }
 
@@ -78,12 +103,16 @@ class Privacy {
     })
   }
 
-  push(type, callback) {
-    window._privacy.push([type, callback])
+  push(type, successCallback, failCallback = () => {}) {
+    window._privacy.push([type, successCallback, failCallback])
   }
 
   pushConsentGiven(callback) {
-    this.push('consentGiven', callback)
+    this.push('consentgiven', callback)
+  }
+
+  pushFunctional(callback) {
+    this.push('functional', callback)
   }
 }
 
