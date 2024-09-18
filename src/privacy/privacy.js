@@ -53,6 +53,10 @@ class Privacy {
     }, timeoutTime)
 
     this.pushConsentGiven((consentData) => {
+      let updatedConsentData = {
+        consentString: consentData.tcString,
+        purposes: new Set(consentData.dpgConsentString.split('|')),
+      }
       const iabPurposePromises = []
 
       // We have 10 IAB purposes, so we create 10 promises that resolve with the purpose number or null if the purpose is not given.
@@ -69,12 +73,12 @@ class Privacy {
       }
 
       Promise.all(iabPurposePromises).then((purposeConsents) => {
-        const updatedConsentData = purposeConsents.reduce((acc, curr) => {
-          if (curr) {
-            acc.dpgConsentString += `|${curr}`
+        updatedConsentData = purposeConsents.reduce((acc, purpose) => {
+          if (purpose) {
+            acc.purposes.add(purpose)
           }
           return acc
-        }, consentData)
+        }, updatedConsentData)
 
         this.consent = new Consent(updatedConsentData)
         this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
@@ -118,8 +122,8 @@ class Privacy {
 
 class Consent {
   constructor(consentData) {
-    this.consentString = consentData.tcString
-    this.purposes = new Set(consentData.dpgConsentString.split('|'))
+    this.consentString = consentData.consentString
+    this.purposes = consentData.purposes
   }
 
   allowsTargetedAdvertising() {
