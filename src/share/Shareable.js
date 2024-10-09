@@ -36,7 +36,7 @@ export default class Shareable {
 
   async generateUsingImage(imageGeneratorProperties) {
     const response = await fetch('https://dba1du5ckc.execute-api.eu-west-3.amazonaws.com/prod/', {
-      method: 'post',
+      method: 'POST',
       body: JSON.stringify({
         title: this.title,
         description: this.description,
