@@ -17,6 +17,10 @@ class Hybrid {
   }
 
   constructor() {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     // Hook this on window so it can be required in multiple packs
     window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
 
