@@ -5,6 +5,10 @@ import loadScript from '../utils/loadScript.js'
 
 class DataLayer {
   constructor() {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     window.dataLayer = window.dataLayer || []
     this.campaignDetails = {}
     this.userInformation = {}

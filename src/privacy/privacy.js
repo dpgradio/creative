@@ -3,6 +3,10 @@ import loadScript from '../utils/loadScript.js'
 
 class Privacy {
   constructor() {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     window._privacy = window._privacy || []
 
     this.consent = undefined
