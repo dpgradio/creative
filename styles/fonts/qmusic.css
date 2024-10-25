@@ -41,8 +41,11 @@
 }
 
 @font-face {
-	font-family: QMarkMyWords;
-	src: url(https://fonts.qmusic.be/qmarkmywords-webfont.ttf), url(https://fonts.qmusic.be/qmarkmywords-webfont.eot), url(https://fonts.qmusic.be/qmarkmywords-webfont.woff), url(https://fonts.qmusic.be/qmarkmywords-webfont.woff2), url(https://fonts.qmusic.be/qmarkmywords-webfont.svg);
-	font-weight: 400;
-	font-style: normal
+	font-family: BlackBones;
+	src: url(https://fonts.qmusic.be/black-bones.ttf), url(https://fonts.qmusic.be/black-bones.eot), url(https://fonts.qmusic.be/black-bones.woff), url(https://fonts.qmusic.be/black-bones.woff2), url(https://fonts.qmusic.be/black-bones.svg);
+   	font-weight: normal;
+	font-style: normal;
+	font-display: fallback;
 }
+
+

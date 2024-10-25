@@ -1,17 +1,20 @@
 :root {
   --q-red: 237 54 36;
+  --q-red-dark: 217 46 32;
+
   --q-grey: 61 61 61;
+  --q-grey-light: 230 230 230;
+  --q-grey-dark: 43 43 43;
+
+  --q-green: 168 216 50;
+  --q-yellow: 249 243 197;
+  --q-purple: 252 104 182;
+  --q-blue: 124 186 247;
+
+  /* deprecated */
   --q-teal: 0 191 179;
-  --q-yellow: 249 212 35;
-  --q-purple: 210 110 230;
-  --q-green: 151 215 0;
-  --q-blue: 2 134 255;
-
-  --q-red-dark: 205 34 17;
   --q-blue-dark: 9 0 134;
-
   --q-blue-light: 91 194 231;
   --q-teal-light: 184 229 209;
-  --q-grey-light: 249 249 250;
   --q-purple-light: 244 224 249;
 }
