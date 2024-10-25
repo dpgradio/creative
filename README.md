@@ -30,9 +30,9 @@ Example:
 @import "@dpgradio/creative/styles/fonts/qmusic";
 
 body, html {
-  background-color: rgb(var(--q-teal));
+  background-color: rgb(var(--q-green));
   color: rgb(var(--q-grey) / 0.8);
-  font-family: 'QMarkMyWords';
+  font-family: 'BlackBones';
 }
 ```
 
