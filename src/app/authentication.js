@@ -22,11 +22,14 @@ class Authentication {
   }
 
   initialize() {
-    hybrid.appLoaded().then((radioToken) => {
-      if (radioToken) {
-        this.setToken(radioToken)
-      }
-    })
+    hybrid
+      .appLoaded()
+      .then((radioToken) => {
+        if (radioToken) {
+          this.setToken(radioToken)
+        }
+      })
+      .catch(() => {})
     hybrid.on('authenticated', ({ radioToken }) => {
       this.setToken(radioToken)
     })
