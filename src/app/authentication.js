@@ -29,7 +29,7 @@ class Authentication {
           this.setToken(radioToken)
         }
       })
-      .catch(() => {})
+      .catch(() => {}) // We don't have to do anything if there is no radio token at app load
     hybrid.on('authenticated', ({ radioToken }) => {
       this.setToken(radioToken)
     })
