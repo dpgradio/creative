@@ -1,4 +1,5 @@
 import tap from '../utils/tap.js'
+import hybrid from '../app/hybrid.js'
 
 export default class Request {
   constructor(baseUrl, version, errorHandlers = []) {
@@ -76,6 +77,24 @@ export default class Request {
     })
 
     if (!response.ok) {
+      if (response.status === 401) {
+        const updatedToken = Promise.race([
+          new Promise((resolve) => {
+            hybrid.on('authenticated', (token) => resolve(token))
+          }),
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Timeout: no token received')), 3000) // 3 second
+          }),
+        ])
+
+        hybrid.call('refreshExpiredToken')
+
+        await updatedToken
+
+        this.withHeader('Authorization', `Bearer ${updatedToken}`)
+        return this.fetchJson(endpoint, method)
+      }
+
       this.errorHandlers.forEach((handler) => handler({ response }))
 
       throw new Error(
