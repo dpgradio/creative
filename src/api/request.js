@@ -77,7 +77,7 @@ export default class Request {
     })
 
     if (!response.ok) {
-      if (response.status === 401 && hybrid.isNativeApp) {
+      if (response.status === 401 && hybrid.isNativeApp()) {
         return this.refreshTokenAndRetryCall(endpoint, method)
       }
 
