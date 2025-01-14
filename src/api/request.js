@@ -83,15 +83,14 @@ export default class Request {
             hybrid.on('authenticated', (token) => resolve(token))
           }),
           new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('Timeout: no token received')), 3000) // 3 second
+            setTimeout(() => reject(new Error('Timeout: no token received')), 2000)
           }),
         ])
 
         hybrid.call('refreshExpiredToken')
 
-        await updatedToken
-
-        this.withHeader('Authorization', `Bearer ${updatedToken}`)
+        const token = (await updatedToken).radioToken
+        this.withHeader('Authorization', `Bearer ${token}`)
         return this.fetchJson(endpoint, method)
       }
 
