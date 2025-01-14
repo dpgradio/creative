@@ -77,21 +77,8 @@ export default class Request {
     })
 
     if (!response.ok) {
-      if (response.status === 401) {
-        const updatedToken = Promise.race([
-          new Promise((resolve) => {
-            hybrid.on('authenticated', (token) => resolve(token))
-          }),
-          new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('Timeout: no token received')), 2000)
-          }),
-        ])
-
-        hybrid.call('refreshExpiredToken')
-
-        const token = (await updatedToken).radioToken
-        this.withHeader('Authorization', `Bearer ${token}`)
-        return this.fetchJson(endpoint, method)
+      if (response.status === 401 && hybrid.isNativeApp) {
+        return this.refreshTokenAndRetryCall(endpoint, method)
       }
 
       this.errorHandlers.forEach((handler) => handler({ response }))
@@ -107,6 +94,23 @@ export default class Request {
     } catch (error) {
       return null
     }
+  }
+
+  async refreshTokenAndRetryCall(endpoint, method) {
+    const updatedToken = Promise.race([
+      new Promise((resolve) => {
+        hybrid.on('authenticated', (token) => resolve(token))
+      }),
+      new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Timeout: no token received')), 2000)
+      }),
+    ])
+
+    hybrid.call('refreshExpiredToken')
+
+    const token = (await updatedToken).radioToken
+    this.withHeader('Authorization', `Bearer ${token}`)
+    return this.fetchJson(endpoint, method)
   }
 
   constructUrl(endpoint) {
