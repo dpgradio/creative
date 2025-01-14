@@ -1,6 +1,8 @@
 import tap from '../utils/tap.js'
-import hybrid from '../app/hybrid.js'
+import authentication from '../app/authentication.js'
 
+let authenticationRetries = 0
+let tokenRefreshPromise = null
 export default class Request {
   constructor(baseUrl, version, errorHandlers = []) {
     this.baseUrl = baseUrl
@@ -77,9 +79,19 @@ export default class Request {
     })
 
     if (!response.ok) {
-      if (response.status === 401 && hybrid.isNativeApp()) {
-        await this.refreshToken()
-        return await this.fetchJson(endpoint, method)
+      if (response.status === 401 && authenticationRetries < 2) {
+        if (!tokenRefreshPromise) {
+          tokenRefreshPromise = authentication.refreshToken()
+        }
+
+        try {
+          const newToken = await tokenRefreshPromise
+          authenticationRetries++
+          this.withHeader('Authorization', `Bearer ${newToken}`)
+          return await this.fetchJson(endpoint, method)
+        } finally {
+          tokenRefreshPromise = null
+        }
       }
 
       this.errorHandlers.forEach((handler) => handler({ response }))
@@ -90,27 +102,14 @@ export default class Request {
       )
     }
 
+    // reset authentication retries
+    this.authenticationRetries = 0
+
     try {
       return await response.json()
     } catch (error) {
       return null
     }
-  }
-
-  async refreshToken() {
-    const updatedToken = Promise.race([
-      new Promise((resolve) => {
-        hybrid.on('authenticated', (token) => resolve(token))
-      }),
-      new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('Timeout: no token received')), 2000)
-      }),
-    ])
-
-    hybrid.call('refreshExpiredToken')
-
-    const token = (await updatedToken).radioToken
-    this.withHeader('Authorization', `Bearer ${token}`)
   }
 
   constructUrl(endpoint) {
