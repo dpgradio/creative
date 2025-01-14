@@ -78,7 +78,8 @@ export default class Request {
 
     if (!response.ok) {
       if (response.status === 401 && hybrid.isNativeApp()) {
-        return this.refreshTokenAndRetryCall(endpoint, method)
+        await this.refreshToken()
+        return await this.fetchJson(endpoint, method)
       }
 
       this.errorHandlers.forEach((handler) => handler({ response }))
@@ -96,7 +97,7 @@ export default class Request {
     }
   }
 
-  async refreshTokenAndRetryCall(endpoint, method) {
+  async refreshToken() {
     const updatedToken = Promise.race([
       new Promise((resolve) => {
         hybrid.on('authenticated', (token) => resolve(token))
@@ -110,7 +111,6 @@ export default class Request {
 
     const token = (await updatedToken).radioToken
     this.withHeader('Authorization', `Bearer ${token}`)
-    return this.fetchJson(endpoint, method)
   }
 
   constructUrl(endpoint) {
