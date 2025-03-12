@@ -1,5 +1,8 @@
 import tap from '../utils/tap.js'
+import authentication from '../app/authentication.js'
 
+let authenticationRetries = 0
+let tokenRefreshPromise = null
 export default class Request {
   constructor(baseUrl, version, errorHandlers = []) {
     this.baseUrl = baseUrl
@@ -76,6 +79,21 @@ export default class Request {
     })
 
     if (!response.ok) {
+      if (response.status === 401 && authenticationRetries < 2) {
+        if (!tokenRefreshPromise) {
+          tokenRefreshPromise = authentication.refreshToken()
+        }
+
+        try {
+          const newToken = await tokenRefreshPromise
+          authenticationRetries++
+          this.withHeader('Authorization', `Bearer ${newToken}`)
+          return await this.fetchJson(endpoint, method)
+        } finally {
+          tokenRefreshPromise = null
+        }
+      }
+
       this.errorHandlers.forEach((handler) => handler({ response }))
 
       throw new Error(
@@ -83,6 +101,9 @@ export default class Request {
           `RESPONSE\n--------\n${await response.text()}`
       )
     }
+
+    // reset authentication retries
+    this.authenticationRetries = 0
 
     try {
       return await response.json()
