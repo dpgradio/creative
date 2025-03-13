@@ -103,7 +103,7 @@ export default class Request {
     }
 
     // reset authentication retries
-    this.authenticationRetries = 0
+    authenticationRetries = 0
 
     try {
       return await response.json()
