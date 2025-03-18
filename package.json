@@ -1,6 +1,6 @@
 {
   "name": "@dpgradio/creative",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Support package for standalone Javascript applications",
   "main": "src/index.js",
   "scripts": {
