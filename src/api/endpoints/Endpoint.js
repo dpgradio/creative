@@ -24,8 +24,9 @@ export default class Endpoint {
    * @param {requestCallback} callback
    * @returns {object}
    */
-  async requestData(callback, key = 'data') {
-    const response = await callback(this.api.request())
+  async requestData(callback, key = 'data', config = { withAuth: false }) {
+    const api = config.withAuth ? this.api.withAuth() : this.api
+    const response = await callback(api.request())
 
     if (response === null) {
       throw new Error(`Endpoint returned invalid JSON.`)
@@ -40,8 +41,9 @@ export default class Endpoint {
    * @param {requestCallback} callback
    * @returns {PaginatedResponse}
    */
-  async requestPaginatedData(callback, key = 'data') {
-    const response = await callback(this.api.request())
+  async requestPaginatedData(callback, key = 'data', config = { withAuth: false }) {
+    const api = config.withAuth ? this.api.withAuth() : this.api
+    const response = await callback(api.request())
 
     if (response === null) {
       throw new Error(`Endpoint returned invalid JSON.`)
@@ -53,7 +55,7 @@ export default class Endpoint {
       throw new Error(`Key 'pagination' not found in response: ${JSON.stringify(response)}`)
     }
 
-    return new PaginatedResponse(response, key)
+    return new PaginatedResponse(response, key, api)
   }
 
   withoutNullValues(object) {
