@@ -15,7 +15,7 @@ Table of contents:
 ## Installation
 
 ```bash
-yarn add @dpgradio/creative
+npm i @dpgradio/creative
 ```
 
 ## CSS: Fonts and Colors
