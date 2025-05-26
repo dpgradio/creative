@@ -11,6 +11,7 @@ export default class SocketConnection {
     this.messages = []
     this.lastAttempt = 1
     this.reconnecting = false
+    this.heartbeatTimeout = null
 
     this.connect()
   }
@@ -31,10 +32,17 @@ export default class SocketConnection {
 
       this.reconnecting = false
       this.flushMessages()
+      this._startHeartbeatTimeout()
+    }
+
+    this.socket.onheartbeat = () => {
+      this._resetHeartbeatTimeout()
     }
 
     this.socket.onmessage = (event) => {
       this.log('>>>', event.data)
+
+      this._resetHeartbeatTimeout()
 
       try {
         const message = JSON.parse(event.data)
@@ -47,6 +55,8 @@ export default class SocketConnection {
 
     this.socket.onclose = (event) => {
       this.log(`Disconnected ${event.code}`, event)
+
+      this._clearHeartbeatTimeout()
 
       // This is a technical issue, try again
       if ([1000, 1001, 1002, 1003, 1004, 1005, 1006, 2000].includes(event.code)) {
@@ -164,6 +174,41 @@ export default class SocketConnection {
   _reauthenticate() {
     for (const auth of this.authData) {
       this._sendAuthentication(auth)
+    }
+  }
+
+  _isWebsocketTransport() {
+    return (
+      this.socket.protocol === 'websocket' ||
+      (this.socket._transport && this.socket._transport.transportName === 'websocket')
+    )
+  }
+
+  _startHeartbeatTimeout() {
+    if (this.options.heartbeatTimeout === false || !this._isWebsocketTransport()) {
+      return
+    }
+
+    this._clearHeartbeatTimeout()
+
+    this.heartbeatTimeout = setTimeout(() => {
+      this.log('Heartbeat timeout - closing connection')
+      this.socket._close(1006, 'Heartbeat timeout')
+    }, this.options.heartbeatTimeout || 35000)
+  }
+
+  _resetHeartbeatTimeout() {
+    if (!this._isWebsocketTransport()) {
+      return
+    }
+
+    this._startHeartbeatTimeout()
+  }
+
+  _clearHeartbeatTimeout() {
+    if (this.heartbeatTimeout) {
+      clearTimeout(this.heartbeatTimeout)
+      this.heartbeatTimeout = null
     }
   }
 }
