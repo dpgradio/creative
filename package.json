@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "lint-check": "eslint --ext .js --ignore-path .gitignore src",
-    "lint": "yarn lint-check --fix",
+    "lint": "npm run lint-check --fix",
     "dev": "vite dev --open"
   },
   "repository": {
