@@ -6,7 +6,7 @@ export default class Members extends Endpoint {
   }
 
   async basicInfo(profileId, email) {
-    return await this.api.request().get(`/members/basic-info/${profileId}`, {email: email})
+    return await this.api.request().get(`/members/basic-info/${profileId}`, { email: email })
   }
 
   async updateProfile(profile) {
