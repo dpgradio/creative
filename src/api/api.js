@@ -47,7 +47,6 @@ export class Api {
     const modifiers = [...this.requestModifiers]
 
     this.apiKey && modifiers.push((request) => request.withQueryParameters({ api_key: this.apiKey }))
-    this.radioToken && modifiers.push((request) => request.withHeader('Authorization', `Bearer ${this.radioToken}`))
 
     return tap(new Request(this.baseUrl, this.version, this.errorHandlers), (request) => {
       modifiers.forEach((modifier) => modifier(request))
@@ -72,6 +71,15 @@ export class Api {
     return tap(this.clone(), (api) => (api.baseUrlOverride = GLOBAL_API_URL))
   }
 
+  withAuth() {
+    return tap(this.clone(), (api) => {
+      if (!this.radioToken) {
+        throw new Error('No currentUserToken available')
+      }
+      api.requestModifiers.push((request) => request.withHeader('Authorization', `Bearer ${this.radioToken}`))
+    })
+  }
+
   addErrorHandler(handler) {
     this.errorHandlers.push(handler)
     return this
@@ -81,7 +89,6 @@ export class Api {
     return tap(new Api(this.baseUrlOverride, this.version), (api) => {
       api.apiKey = this.apiKey
       api.radioToken = this.radioToken
-      api.requestModifiers = this.requestModifiers
       api.errorHandlers = this.errorHandlers
     })
   }
