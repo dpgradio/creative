@@ -1,4 +1,4 @@
-export const setupAirbrake = async (
+export const setupAirbrake = (
   AirbrakeNotifier,
   { projectId, projectKey, version, environment = 'production' },
   app = null
