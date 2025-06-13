@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-unresolved -- TODO: Needs a rewrite to fetch
-import axios from 'axios'
 import ShareResult from './ShareResult.js'
 
 export default class Shareable {
@@ -36,21 +34,21 @@ export default class Shareable {
     return this
   }
 
-  generateUsingImage(imageGeneratorProperties) {
-    return new Promise((resolve, reject) => {
-      axios({
-        url: 'https://dba1du5ckc.execute-api.eu-west-3.amazonaws.com/prod/',
-        method: 'post',
-        data: {
-          title: this.title,
-          description: this.description,
-          image_generator: imageGeneratorProperties.toJson(),
-          redirect_url: this.redirectUrl,
-          domain: this.domain,
-        },
-      })
-        .then((response) => resolve(new ShareResult(this, response.data)))
-        .catch(reject)
+  async generateUsingImage(imageGeneratorProperties) {
+    const response = await fetch('https://dba1du5ckc.execute-api.eu-west-3.amazonaws.com/prod/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: this.title,
+        description: this.description,
+        image_generator: imageGeneratorProperties.toJson(),
+        redirect_url: this.redirectUrl,
+        domain: this.domain,
+      }),
     })
+    const data = await response.json()
+    return new ShareResult(this, data)
   }
 }

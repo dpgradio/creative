@@ -3,6 +3,10 @@ import loadScript from '../utils/loadScript.js'
 
 class Privacy {
   constructor() {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     window._privacy = window._privacy || []
 
     this.consent = undefined
@@ -52,10 +56,39 @@ class Privacy {
       this.consentSubscribers.forEach((subscriber) => subscriber(null))
     }, timeoutTime)
 
-    this.pushFunctional(() => {
-      clearTimeout(timeout)
-      this.consent = new Consent(window._privacy.consentString, window._privacy.purposesProvider.enabledPurposes)
-      this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
+    this.pushConsentGiven((consentData) => {
+      let updatedConsentData = {
+        consentString: consentData.tcString,
+        purposes: new Set(consentData.dpgConsentString.split('|')),
+      }
+      const iabPurposePromises = []
+
+      // We have 10 IAB purposes, so we create 10 promises that resolve with the purpose number or null if the purpose is not given.
+      for (let i = 1; i < 11; i++) {
+        iabPurposePromises.push(
+          new Promise((resolve) => {
+            this.push(
+              i,
+              () => resolve(i), // Resolve with the purpose number
+              () => resolve(null) // Resolve without a value, indicating that the purpose is not given
+            )
+          })
+        )
+      }
+
+      Promise.all(iabPurposePromises).then((purposeConsents) => {
+        updatedConsentData = purposeConsents.reduce((acc, purpose) => {
+          if (purpose) {
+            acc.purposes.add(purpose)
+          }
+          return acc
+        }, updatedConsentData)
+
+        this.consent = new Consent(updatedConsentData)
+        this.consentSubscribers.forEach((subscriber) => subscriber(this.consent))
+
+        clearTimeout(timeout)
+      })
     })
   }
 
@@ -78,8 +111,12 @@ class Privacy {
     })
   }
 
-  push(type, callback) {
-    window._privacy.push([type, callback])
+  push(type, successCallback, failCallback = () => {}) {
+    window._privacy.push([type, successCallback, failCallback])
+  }
+
+  pushConsentGiven(callback) {
+    this.push('consentgiven', callback)
   }
 
   pushFunctional(callback) {
@@ -87,16 +124,14 @@ class Privacy {
   }
 }
 
-const targetedAdvertisingPurposes = [3, 4]
-
 class Consent {
-  constructor(consentString, purposes) {
-    this.consentString = consentString
-    this.purposes = purposes
+  constructor(consentData) {
+    this.consentString = consentData.consentString
+    this.purposes = consentData.purposes
   }
 
   allowsTargetedAdvertising() {
-    return targetedAdvertisingPurposes.every((purpose) => this.purposes.has(purpose.toString()))
+    return this.purposes.has('targeted_advertising')
   }
 }
 

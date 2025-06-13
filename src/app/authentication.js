@@ -22,11 +22,14 @@ class Authentication {
   }
 
   initialize() {
-    hybrid.appLoaded().then((radioToken) => {
-      if (radioToken) {
-        this.setToken(radioToken)
-      }
-    })
+    hybrid
+      .appLoaded()
+      .then((radioToken) => {
+        if (radioToken) {
+          this.setToken(radioToken)
+        }
+      })
+      .catch(() => {}) // We don't have to do anything if there is no radio token at app load
     hybrid.on('authenticated', ({ radioToken }) => {
       this.setToken(radioToken)
     })
@@ -109,6 +112,38 @@ class Authentication {
         listener()
       }
     })
+  }
+
+  async refreshToken() {
+    if (hybrid.isNativeApp()) {
+      const updatedToken = Promise.race([
+        new Promise((resolve) => {
+          hybrid.on('authenticated', (token) => resolve(token))
+        }),
+        new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Timeout: no token received')), 2000)
+        }),
+      ])
+
+      hybrid.call('refreshExpiredToken')
+
+      return (await updatedToken).radioToken
+    } else {
+      try {
+        const response = await fetch('/login/refresh', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        const token = (await response.json()).radioToken
+        localStorage.setItem(RADIO_TOKEN_LOCAL_STORAGE_KEY, token)
+        return token
+      } catch (e) {
+        localStorage.removeItem(RADIO_TOKEN_LOCAL_STORAGE_KEY)
+        throw e
+      }
+    }
   }
 }
 

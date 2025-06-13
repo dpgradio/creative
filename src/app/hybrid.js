@@ -17,8 +17,25 @@ class Hybrid {
   }
 
   constructor() {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     // Hook this on window so it can be required in multiple packs
     window._hybridEventSubscriptions = window._hybridEventSubscriptions || {}
+
+    // Ensure these native events don't error out because nothing is listening
+    for (const event of [
+      'appLoad',
+      'audioStateChanged',
+      'authenticated',
+      'didAppear',
+      'didHide',
+      'didPrompt',
+      'didAlert',
+    ]) {
+      this.ensureTriggerExists(event)
+    }
 
     this._cachedRadioTokenOnLoad = undefined
     this.on('appLoad', (context) => {

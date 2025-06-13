@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  root: 'examples',
-  build: {
-    outDir: '../dist',
-  },
+  root: './dev',
   server: {
     open: true,
+  },
+  resolve: {
+    alias: {
+      '@dpgradio/creative': '../src',
+    },
   },
 })
