@@ -136,6 +136,9 @@ class Authentication {
             'Content-Type': 'application/json',
           },
         })
+        if (!response.ok) {
+          throw new Error(`Failed to refresh token: ${response.status} ${response.statusText}`)
+        }
         const token = (await response.json()).radioToken
         localStorage.setItem(RADIO_TOKEN_LOCAL_STORAGE_KEY, token)
         return token
