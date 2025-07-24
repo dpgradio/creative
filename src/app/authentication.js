@@ -19,6 +19,8 @@ class Authentication {
 
     this.radioTokenListeners = []
     this.askingForLoginListeners = []
+
+    this._refreshTokenPromise = null
   }
 
   initialize() {
@@ -114,7 +116,7 @@ class Authentication {
     })
   }
 
-  async refreshToken() {
+  async _doRefreshToken() {
     if (hybrid.isNativeApp()) {
       const updatedToken = Promise.race([
         new Promise((resolve) => {
@@ -136,6 +138,9 @@ class Authentication {
             'Content-Type': 'application/json',
           },
         })
+        if (!response.ok) {
+          throw new Error(`Failed to refresh token: ${response.status} ${response.statusText}`)
+        }
         const token = (await response.json()).radioToken
         localStorage.setItem(RADIO_TOKEN_LOCAL_STORAGE_KEY, token)
         return token
@@ -143,6 +148,18 @@ class Authentication {
         localStorage.removeItem(RADIO_TOKEN_LOCAL_STORAGE_KEY)
         throw e
       }
+    }
+  }
+
+  async refreshToken() {
+    if (this._refreshTokenPromise) {
+      return this._refreshTokenPromise
+    }
+    this._refreshTokenPromise = this._doRefreshToken()
+    try {
+      return await this._refreshTokenPromise
+    } finally {
+      this._refreshTokenPromise = null
     }
   }
 }
