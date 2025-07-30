@@ -13,7 +13,7 @@ jobs:
           cache: npm
           registry-url: "https://registry.npmjs.org" # This is needed to make npm publish work...
       - run: npm ci
-      - run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+      - run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version --allow-same-version
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
