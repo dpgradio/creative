@@ -1,6 +1,7 @@
 import api from '../api/api.js'
 import hybrid from './hybrid.js'
 import { onLocalStorageChange } from '../utils/onLocalStorageChange.js'
+import decodeRadioToken from '../utils/decodeRadioToken.js'
 
 export const RADIO_TOKEN_LOCAL_STORAGE_KEY = 'radio-auth-token'
 
@@ -23,6 +24,16 @@ class Authentication {
     this._refreshTokenPromise = null
   }
 
+  _isValidRadioToken(token) {
+    try {
+      decodeRadioToken(token)
+      return true
+    } catch (error) {
+      console.warn('Invalid radio token detected, will be removed from localStorage:', error)
+      return false
+    }
+  }
+
   initialize() {
     hybrid
       .appLoaded()
@@ -40,7 +51,22 @@ class Authentication {
     hybrid.on('didAppear', ({ radioToken }) => {
       this.setToken(radioToken ?? null)
     })
-    onLocalStorageChange(RADIO_TOKEN_LOCAL_STORAGE_KEY, (token) => this.setToken(token), true)
+    onLocalStorageChange(
+      RADIO_TOKEN_LOCAL_STORAGE_KEY,
+      (token) => {
+        if (!token) {
+          this.setToken(null)
+        } else if (this._isValidRadioToken(token)) {
+          this.setToken(token)
+        } else {
+          // Token might be broken. Remove it and try a refresh. This will also ask for login.
+          localStorage.removeItem(RADIO_TOKEN_LOCAL_STORAGE_KEY)
+          this.setToken(null)
+          this.refreshToken().catch(() => {})
+        }
+      },
+      true
+    )
   }
 
   markAskingForLogin(state) {
