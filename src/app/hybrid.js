@@ -10,7 +10,7 @@ const IOS_APP_REGEX =
 
 class Hybrid {
   OPEN_URL_MODES = {
-    SEQUE: 'seque',
+    SEGUE: 'segue',
     OVERLAY: 'overlay',
     IN_APP_BROWSER: 'in-app-browser',
     EXTERNAL_BROWSER: 'external-browser',
@@ -136,7 +136,7 @@ class Hybrid {
    * Opens an external URL.
    *
    * Supported modes:
-   * - `seque`: Opens the URL in a windows that slides from the right, pushing onto the current page.
+   * - `segue`: Opens the URL in a windows that slides from the right, pushing onto the current page.
    * - `overlay`: Opens the URL in a full-screen modal that slides up from the bottom.
    * - `in-app-browser`: Opens the URL in an in-app browser with navigation controls. No hybrid functionality supported.
    * - `external-browser`: Opens the URL in the default browser. No hybrid functionality supported.
@@ -154,7 +154,7 @@ class Hybrid {
   }
 
   /**
-   * Opens a permalink of e.g. an article. The article will be shown in a regular `seque` style.
+   * Opens a permalink of e.g. an article. The article will be shown in a regular `segue` style.
    *
    * As of October 2023, not yet supported by the apps.
    */
