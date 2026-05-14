@@ -37,7 +37,7 @@ body, html {
 ```
 
 Use the following to import the colors and fonts of all brands:
-  
+
 ```css
 @import "@dpgradio/creative/styles/all";
 ```
@@ -288,7 +288,7 @@ This is not meant to open URLs on our own domains, e.g. `https://qmusic.be/this-
 For that, use `hybrid.openPermalink`.
 
 Supported modes:
-* `seque`: Opens the URL in a windows that slides from the right, pushing onto the current page.
+* `segue`: Opens the URL in a windows that slides from the right, pushing onto the current page.
 * `overlay`: Opens the URL in a full-screen modal that slides up from the bottom.
 * `in-app-browser`: Opens the URL in an in-app browser with navigation controls. No hybrid functionality supported.
 * `external-browser`: Opens the URL in the default browser. No hybrid functionality supported.
@@ -296,7 +296,7 @@ Supported modes:
 #### `hybrid.openPermalink(permalink)`
 
 Opens a permalink of e.g. an article.
-The article will be shown in a regular `seque` style.
+The article will be shown in a regular `segue` style.
 
 ⚠️ As of October 2023, not yet supported by the apps.
 
@@ -348,21 +348,21 @@ const shareable = new Shareable()
 const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-70s-quiz-share-fb/index.html')
   .withDimensions(1200, 630)
   .withPayload({ results: this.matches });
-       
+
 (await shareable.generateUsingImage(image)).openFacebookUrl()
 
 // Instagram
 const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-70s-quiz-share-fb/index.html')
   .withDimensions(1080, 1920)
   .withPayload({ results: this.matches });
-       
+
 (await shareable.generateUsingImage(image)).openInstagramUrl()
 
 // Whatsapp
 const image = new ImageGeneratorProperties('https://static.qmusic.be/acties/joe-70s-quiz-share-fb/index.html')
   .withDimensions(1200, 630)
   .withPayload({ results: this.matches });
-       
+
 (await shareable.generateUsingImage(image)).openWhatsappUrl()
 ```
 
