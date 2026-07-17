@@ -1,51 +1,55 @@
 @font-face {
-	font-family: Cervo;
-	src: url(https://fonts.qmusic.be/cervo-light-webfont.ttf), url(https://fonts.qmusic.be/cervo-light-webfont.eot), url(https://fonts.qmusic.be/cervo-light-webfont.woff), url(https://fonts.qmusic.be/cervo-light-webfont.woff2), url(https://fonts.qmusic.be/cervo-light-webfont.svg);
-	font-weight: 400;
-	font-style: normal
+  font-family: 'Cervo';
+  src: url('https://static.radio.dpgmedia.net/fonts/qmusic/cervo/cervo-light.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: Cervo;
-	src: url(https://fonts.qmusic.be/cervo-medium-webfont.ttf), url(https://fonts.qmusic.be/cervo-medium-webfont.eot), url(https://fonts.qmusic.be/cervo-medium-webfont.woff), url(https://fonts.qmusic.be/cervo-medium-webfont.woff2), url(https://fonts.qmusic.be/cervo-medium-webfont.svg);
-	font-weight: 600;
-	font-style: normal
+  font-family: 'Cervo';
+  src: url('https://static.radio.dpgmedia.net/fonts/qmusic/cervo/cervo-medium.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: Qarla;
-	src: url(https://fonts.qmusic.be/qarla-bold-webfont.ttf), url(https://fonts.qmusic.be/qarla-bold-webfont.eot), url(https://fonts.qmusic.be/qarla-bold-webfont.woff), url(https://fonts.qmusic.be/qarla-bold-webfont.woff2), url(https://fonts.qmusic.be/qarla-bold-webfont.svg);
-	font-weight: 700;
-	font-style: normal
+  font-family: 'Qarla';
+  src: url('https://static.radio.dpgmedia.net/fonts/qmusic/qarla/qarla-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: Qarla;
-	src: url(https://fonts.qmusic.be/qarla-bolditalic-webfont.ttf), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.eot), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.woff), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.woff2), url(https://fonts.qmusic.be/qarla-bolditalic-webfont.svg);
-	font-weight: 700;
-	font-style: italic
+  font-family: 'Qarla';
+  src: url('https://static.radio.dpgmedia.net/fonts/qmusic/qarla/qarla-bolditalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: Qarla;
-	src: url(https://fonts.qmusic.be/qarla-italic-webfont.ttf), url(https://fonts.qmusic.be/qarla-italic-webfont.eot), url(https://fonts.qmusic.be/qarla-italic-webfont.woff), url(https://fonts.qmusic.be/qarla-italic-webfont.woff2), url(https://fonts.qmusic.be/qarla-italic-webfont.svg);
-	font-weight: 400;
-	font-style: italic
+  font-family: 'Qarla';
+  src: url('https://static.radio.dpgmedia.net/fonts/qmusic/qarla/qarla-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: Qarla;
-	src: url(https://fonts.qmusic.be/qarla-regular-webfont.ttf), url(https://fonts.qmusic.be/qarla-regular-webfont.eot), url(https://fonts.qmusic.be/qarla-regular-webfont.woff), url(https://fonts.qmusic.be/qarla-regular-webfont.woff2), url(https://fonts.qmusic.be/qarla-regular-webfont.svg);
-	font-weight: 400;
-	font-style: normal
+  font-family: 'Qarla';
+  src: url('https://static.radio.dpgmedia.net/fonts/qmusic/qarla/qarla-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: BlackBones;
-	src: url(https://fonts.qmusic.be/black-bones.ttf), url(https://fonts.qmusic.be/black-bones.eot), url(https://fonts.qmusic.be/black-bones.woff), url(https://fonts.qmusic.be/black-bones.woff2), url(https://fonts.qmusic.be/black-bones.svg);
-   	font-weight: normal;
-	font-style: normal;
-	font-display: fallback;
+  font-family: 'BlackBones';
+  src: url('https://static.radio.dpgmedia.net/fonts/qmusic/black-bones/black-bones.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
-
-
