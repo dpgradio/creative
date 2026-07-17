@@ -1,34 +1,39 @@
 @font-face {
-	font-family: geomanist;
-	src: url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-light-webfont.eot), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-light-webfont.woff), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-light-webfont.woff2);
-	font-weight: 200;
-	font-style: normal
+  font-family: 'geomanist';
+  src: url('https://static.radio.dpgmedia.net/fonts/joe/geomanist/geomanist-light.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: geomanist;
-	src: url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-book-webfont.eot), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-book-webfont.woff), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-book-webfont.woff2);
-	font-weight: 300;
-	font-style: normal
+  font-family: 'geomanist';
+  src: url('https://static.radio.dpgmedia.net/fonts/joe/geomanist/geomanist-book.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: geomanist;
-	src: url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-regular-webfont.eot), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-regular-webfont.woff), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-regular-webfont.woff2);
-	font-weight: 400;
-	font-style: normal
+  font-family: 'geomanist';
+  src: url('https://static.radio.dpgmedia.net/fonts/joe/geomanist/geomanist-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: geomanist;
-	src: url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-medium-webfont.eot), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-medium-webfont.woff), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-medium-webfont.woff2);
-	font-weight: 500;
-	font-style: normal
+  font-family: 'geomanist';
+  src: url('https://static.radio.dpgmedia.net/fonts/joe/geomanist/geomanist-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-	font-family: geomanist;
-	src: url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-bold-webfont.eot), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-bold-webfont.woff), url(https://static1.qmusic.medialaancdn.be/store/static/fonts/geomanist-bold-webfont.woff2);
-	font-weight: 600;
-	font-style: normal
+  font-family: 'geomanist';
+  src: url('https://static.radio.dpgmedia.net/fonts/joe/geomanist/geomanist-bold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
