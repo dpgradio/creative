@@ -1,4 +1,11 @@
 @font-face {
+  font-family: 'Almost Textual';
+  src: url('https://static.radio.dpgmedia.net/fonts/willy/almost-textual/almost-textual.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* Deprecated: Anton is replaced by Almost Textual. */
+@font-face {
   font-family: 'Anton';
   src: url('https://static.radio.dpgmedia.net/fonts/willy/anton/anton-regular.woff2') format('woff2');
   font-weight: 400;
@@ -75,11 +82,5 @@
   src: url('https://static.radio.dpgmedia.net/fonts/willy/rift/rift-bolditalic.woff2') format('woff2');
   font-weight: 700;
   font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Almost Textual';
-  src: url('https://static.radio.dpgmedia.net/fonts/willy/almost-textual/almost-textual.woff2') format('woff2');
   font-display: swap;
 }
