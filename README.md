@@ -194,6 +194,19 @@ const api = new Api('https://api.qmusic.be')
 const channels = await api.channels.all()
 ```
 
+Non predefined API endpoints:
+
+```js
+import { Api } from '@dpgradio/creative'
+
+const api = new Api('https://api.qmusic.be')
+
+api.setRadioToken(token)
+api.withAuth().request().post('/some-non-predefined-endpoint') // for authenticated endpoints
+api.request().get('/some-non-predefined-endpoint') // for non-authenticate endpoints
+
+```
+
 ## Socket
 
 ```js

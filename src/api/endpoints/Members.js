@@ -2,7 +2,7 @@ import Endpoint from './Endpoint.js'
 
 export default class Members extends Endpoint {
   async me() {
-    return await this.api.request().get('/members/me')
+    return await this.api.withAuth().request().get('/members/me')
   }
 
   async basicInfo(profileId, email) {
@@ -10,6 +10,6 @@ export default class Members extends Endpoint {
   }
 
   async updateProfile(profile) {
-    return await this.api.request().put('/members/me', { profile })
+    return await this.api.withAuth().request().put('/members/me', { profile })
   }
 }
