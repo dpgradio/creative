@@ -1,4 +1,12 @@
 @font-face {
+  font-family: 'Almost Textual';
+  src: url('https://static.radio.dpgmedia.net/fonts/willy/almost-textual/almost-textual.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Deprecated: Anton is replaced by Almost Textual. */
+@font-face {
   font-family: 'Anton';
   src: url('https://static.radio.dpgmedia.net/fonts/willy/anton/anton-regular.woff2') format('woff2');
   font-weight: 400;
