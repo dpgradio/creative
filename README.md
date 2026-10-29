@@ -399,3 +399,4 @@ This package provides a number of utility functions.
 | `removePhoneNumberCountryPrefix(phoneNumber, [, prefix])` | Removes a country prefix from a phone number based on the station config `country_code`. |
 | `onLocalStorageChange(key, callback)`                     | Calls `callback` when the value of `key` in `localStorage` changes.                      |
 | `decodeRadioToken(token)`                                 | Decodes a JWT radio token.                                                               |
+| `debounce(ms, fn)`                                        | Returns a debounced version of `fn` that delays invocation until `ms` after the last call. |
